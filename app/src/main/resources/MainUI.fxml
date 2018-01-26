@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXHamburger?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="mainAnchor" prefHeight="720.0" prefWidth="1284.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" >
+   <children>
+      <ImageView fitHeight="602.0" fitWidth="1089.0" layoutX="216.0" layoutY="126.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../Desktop/Ethereum/blockchainMainview.jpg" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <AnchorPane layoutX="-3.0" prefHeight="728.0" prefWidth="219.0" style="-fx-background-color: #ba3939;">
+         <children>
+            <JFXButton layoutX="-3.0" layoutY="306.0" prefHeight="46.0" prefWidth="219.0" text="Settings" textFill="WHITE">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </JFXButton>
+            <JFXButton layoutX="-1.0" layoutY="352.0" prefHeight="46.0" prefWidth="219.0" text="About Us" textFill="WHITE">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </JFXButton>
+            <ImageView fitHeight="150.0" fitWidth="175.0" layoutX="32.0" layoutY="433.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../Desktop/Ethereum/icons8-ethereum-512.png" />
+               </image>
+               <effect>
+                  <Glow />
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="32.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../Desktop/Ethereum/icons8-settings-32.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="32.0" layoutY="363.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../Desktop/Ethereum/icons8-info-32.png" />
+               </image>
+            </ImageView>
+            <Separator layoutX="20.0" layoutY="162.0" prefHeight="3.0" prefWidth="175.0" style="-fx-background-color: #ffffff;" />
+            <JFXHamburger fx:id="hamburger" layoutX="175.0" layoutY="14.0" style="-fx-background-color: transparent;" />
+         </children>
+         <effect>
+            <DropShadow />
+         </effect>
+      </AnchorPane>
+      <AnchorPane layoutX="236.0" layoutY="692.0" prefHeight="36.0" prefWidth="1059.0" style="-fx-background-color: #ba3939; -fx-background-radius: 20;">
+         <children>
+            <Label layoutX="1032.0" prefHeight="36.0" prefWidth="36.0" style="-fx-background-color: #ba3939;" />
+         </children>
+         <effect>
+            <DropShadow />
+         </effect>
+      </AnchorPane>
+      <AnchorPane id="actionBarAnchor" fx:id="actionBarAnchor" layoutX="215.0" prefHeight="126.0" prefWidth="1089.0" stylesheets="@GrdientActionBar.css" />
+   </children>
+</AnchorPane>

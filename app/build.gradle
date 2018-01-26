@@ -1,0 +1,15 @@
+group 'Ettercaps'
+version '1.0.0'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile ('org.web3j:core:3.2.0')
+}

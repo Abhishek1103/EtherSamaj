@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.GaussianBlur?>
+<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="552.0" prefWidth="959.0" style="-fx-background-color: #20120F;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="framework.ProjectViewController">
+    <children>
+        <ImageView fitHeight="552.0" fitWidth="553.0" opacity="0.54" pickOnBounds="true">
+            <image>
+                <Image url="@Images/blockchain1.jpg" />
+            </image>
+         <effect>
+            <GaussianBlur radius="6.16" />
+         </effect>
+        </ImageView>
+        <AnchorPane layoutX="593.0" layoutY="61.0" prefHeight="451.0" prefWidth="334.0" style="-fx-background-color: #9c2b27; -fx-border-radius: 50px; -fx-background-radius: 40px;">
+         <children>
+            <JFXButton fx:id="btnTakeProject" buttonType="RAISED" layoutX="71.0" layoutY="387.0" onAction="#onUndertakeProjectButtonClicked" prefHeight="35.0" prefWidth="201.0" ripplerFill="WHITE" style="-fx-background-color: #a31a1a;" text="Undertake Project" textAlignment="CENTER" textFill="#ddd9d9">
+               <font>
+                  <Font size="15.0" />
+               </font></JFXButton>
+            <JFXButton layoutX="3.0" layoutY="98.0" onAction="#onProjectIdClicked" prefHeight="45.0" prefWidth="334.0" ripplerFill="#ae5555" style="-fx-background-color: #9c2b27;" text="Project ID" textAlignment="CENTER" textFill="#dadada">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </JFXButton>
+            <JFXButton layoutX="3.0" layoutY="143.0" onAction="#onAllotedFundsClicked" prefHeight="45.0" prefWidth="334.0" ripplerFill="#ae5555" style="-fx-background-color: #9c2b27;" text="Allocated Funds" textAlignment="CENTER" textFill="#dadada">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </JFXButton>
+            <JFXButton layoutX="4.0" layoutY="188.0" prefHeight="45.0" prefWidth="334.0" ripplerFill="#ae5555" style="-fx-background-color: #9c2b27;" text="Fund Allocation Deadline" textAlignment="CENTER" textFill="#dadada">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </JFXButton>
+            <JFXButton layoutX="3.0" layoutY="233.0" prefHeight="45.0" prefWidth="334.0" ripplerFill="#ae5555" style="-fx-background-color: #9c2b27;" text="Completion Deadline" textAlignment="CENTER" textFill="#dadada">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </JFXButton>
+            <JFXButton layoutX="3.0" layoutY="278.0" onAction="#onProjectStatisticsClicked" prefHeight="45.0" prefWidth="334.0" ripplerFill="#ae5555" style="-fx-background-color: #9c2b27;" text="Project Statistics" textAlignment="CENTER" textFill="#dadada">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </JFXButton>
+            <ImageView fitHeight="28.0" fitWidth="26.0" layoutX="84.0" layoutY="108.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Images/icons8-touch-id-26.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="28.0" fitWidth="26.0" layoutX="58.0" layoutY="153.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Images/icons8-ethereum-26.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="28.0" fitWidth="26.0" layoutX="14.0" layoutY="198.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Images/icons8-schedule-26.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="28.0" fitWidth="26.0" layoutX="35.0" layoutY="243.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Images/icons8-schedule-26.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="28.0" fitWidth="26.0" layoutX="58.0" layoutY="288.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Images/icons8-combo-chart-26.png" />
+               </image>
+            </ImageView>
+         </children>
+         <effect>
+            <DropShadow blurType="GAUSSIAN" height="157.61" radius="79.8225" spread="0.51" width="163.68" />
+         </effect>
+        </AnchorPane>
+        <Label layoutX="35.0" layoutY="140.0" prefHeight="35.0" prefWidth="245.0" text="Project Description" textFill="#e1dada">
+            <font>
+                <Font size="22.0" />
+            </font>
+        </Label>
+        <Label layoutX="35.0" layoutY="186.0" prefHeight="16.0" prefWidth="334.0" text="The Realm is Eternal, Where you live forever" textFill="#bcb5b5" />
+        <JFXButton fx:id="btnFundProject" buttonType="RAISED" layoutX="158.0" layoutY="460.0" onAction="#onFundProjectButtonClicked" prefHeight="35.0" prefWidth="191.0" style="-fx-background-color: #a31a1a;" text="Fund Project" textFill="#d7d1d1">
+         <font>
+            <Font size="15.0" />
+         </font>
+         <effect>
+            <Shadow />
+         </effect></JFXButton>
+        <Label fx:id="label" layoutX="938.0" onMouseClicked="#onExit" prefHeight="28.0" prefWidth="15.0" text="X" textFill="#dad5d5">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Label>
+      <Separator layoutX="553.0" layoutY="36.0" opacity="0.68" orientation="VERTICAL" prefHeight="487.0" prefWidth="3.0" />
+      <ImageView layoutX="14.0" layoutY="14.0" onMouseClicked="#onBack" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Images/icons8-go-back-261.png" />
+         </image>
+      </ImageView>
+    </children>
+</AnchorPane>

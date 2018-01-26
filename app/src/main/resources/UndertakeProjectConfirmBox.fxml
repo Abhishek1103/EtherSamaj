@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXToggleButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.effect.MotionBlur?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="367.0" prefWidth="604.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="framework.UndertakeProjectConfirmController">
+   <children>
+      <BorderPane prefHeight="366.0" prefWidth="604.0">
+         <bottom>
+            <AnchorPane prefHeight="64.0" prefWidth="604.0" style="-fx-background-color: #c0c2c4;" BorderPane.alignment="CENTER">
+               <children>
+                  <JFXButton fx:id="noButton" buttonType="RAISED" layoutX="350.0" layoutY="22.0" onAction="#onNo" prefHeight="26.0" prefWidth="85.0" style="-fx-background-color: #bf1111;" text="No" textFill="WHITE" />
+                  <JFXButton fx:id="yesButton" buttonType="RAISED" layoutX="475.0" layoutY="22.0" onAction="#onYes" prefHeight="26.0" prefWidth="87.0" style="-fx-background-color: #0c8dc9;" text="Yes" textFill="WHITE" />
+                  <Separator layoutX="4.0" layoutY="-2.0" prefHeight="4.0" prefWidth="598.0" />
+                  <JFXToggleButton fx:id="toggleButton" layoutX="26.0" layoutY="2.0" text="Accept  Terms and Conditions" textFill="#9e2b2b" toggleColor="#0f6aaf" toggleLineColor="#0c8dc9" />
+               </children>
+            </AnchorPane>
+         </bottom>
+         <center>
+            <AnchorPane prefHeight="119.0" prefWidth="615.0" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fitHeight="227.0" fitWidth="615.0" layoutX="-1.0" pickOnBounds="true" preserveRatio="true">
+                     <effect>
+                        <MotionBlur />
+                     </effect>
+                  </ImageView>
+                  <Label layoutX="91.0" layoutY="32.0" prefHeight="35.0" prefWidth="359.0" text="Terms and Conditions :" underline="true">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <effect>
+                        <Glow />
+                     </effect>
+                  </Label>
+                  <Label layoutX="106.0" layoutY="85.0" prefHeight="16.0" prefWidth="494.0" text="Funds Will be transferred Only after successful completion of project." />
+                  <Label layoutX="107.0" layoutY="101.0" prefHeight="38.0" prefWidth="464.0" text="In case of abandonment of project no partial payment will be done." wrapText="true" />
+                  <Label layoutX="106.0" layoutY="139.0" prefHeight="36.0" prefWidth="451.0" text="Status of completion and quality of work done is subject to the scrutiny and verification of the community" wrapText="true" />
+               </children>
+            </AnchorPane>
+         </center>
+         <top>
+            <AnchorPane prefHeight="74.0" prefWidth="604.0" style="-fx-background-color: #0f4368;" BorderPane.alignment="CENTER">
+               <children>
+                  <Label layoutX="14.0" layoutY="45.0" text="#HKAB18436" textAlignment="CENTER" textFill="#c9bcbc">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="383.0" layoutY="3.0" prefHeight="41.0" prefWidth="214.0" text="Funds Allocated:" textFill="#dddbdb">
+                     <font>
+                        <Font name="System Bold" size="22.0" />
+                     </font>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Label>
+                  <Label layoutX="14.0" layoutY="9.0" prefHeight="30.0" prefWidth="161.0" text="Project ID:" textFill="#ddd5d5">
+                     <font>
+                        <Font name="Cantarell Bold" size="26.0" />
+                     </font>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Label>
+                  <Label alignment="CENTER_RIGHT" layoutX="550.0" layoutY="45.0" text="50" textAlignment="RIGHT" textFill="#b9b1b1">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="28.0" fitWidth="26.0" layoutX="357.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Images/icons8-ethereum-26.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+         </top>
+      </BorderPane>
+   </children>
+</AnchorPane>

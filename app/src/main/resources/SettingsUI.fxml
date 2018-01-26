@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXSlider?>
+<?import com.jfoenix.controls.JFXToggleButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="mainPanel" prefHeight="444.0" prefWidth="388.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="framework.SettingsUIController">
+   <children>
+      <AnchorPane fx:id="toolbar" prefHeight="73.0" prefWidth="388.0" style="-fx-background-color: #3d4956;">
+         <children>
+            <ImageView fx:id="settings" layoutX="31.0" layoutY="21.0" onMouseClicked="#handleButtonAction" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Images/icons8-settings-3.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fx:id="user" layoutX="124.0" layoutY="21.0" onMouseClicked="#handleButtonAction" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Images/icons8-person-32.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fx:id="awards" layoutX="222.0" layoutY="21.0" onMouseClicked="#handleButtonAction" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Images/icons8-trophy-32.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fx:id="exit" layoutX="311.0" layoutY="21.0" onMouseClicked="#exitButtonClicked" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Images/icons8-shutdown-32.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+         </children></AnchorPane>
+      <AnchorPane fx:id="awardsPane" layoutY="82.0" prefHeight="365.0" prefWidth="388.0" style="-fx-background-color: #3d4956;" />
+      <AnchorPane fx:id="userPane" layoutY="81.0" prefHeight="382.0" prefWidth="388.0" style="-fx-background-color: #3d4956;">
+         <children>
+            <ImageView layoutX="164.0" layoutY="79.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Images/icons8-male-user-60.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="157.0" layoutY="157.0" text="WARLORD" textAlignment="CENTER" textFill="#c3b8b8">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label layoutX="130.0" layoutY="183.0" text="Software Developer" textFill="#c3b8b8" />
+            <ImageView fitHeight="51.0" fitWidth="42.0" layoutX="122.0" layoutY="-25.0" pickOnBounds="true">
+               <image>
+                  <Image url="@Images/icons8-sort-up-602.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="settingsPane" layoutY="78.0" prefHeight="382.0" prefWidth="388.0" style="-fx-background-color: #3d4956;">
+         <children>
+            <Label layoutX="27.0" layoutY="33.0" text="TOUCH ENABLED" textFill="#c3b8b8">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <JFXToggleButton fx:id="toggle1" layoutX="245.0" layoutY="19.0" onAction="#handleToggle" prefHeight="60.0" prefWidth="97.0" text="On" textFill="#eda678" toggleColor="#eda678" toggleLineColor="#eba478" />
+            <Label layoutX="27.0" layoutY="56.0" text="Caled 3D Touch, the new&#10;technology can sense pressure" textFill="#bfb1b1">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="27.0" layoutY="118.0" text="AUTO FACE DETECT" textFill="#c3b8b8">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <JFXToggleButton fx:id="toggle2" layoutX="245.0" layoutY="104.0" onAction="#handleToggle" prefHeight="60.0" prefWidth="97.0" text="On" textFill="#eda678" toggleColor="#eda678" toggleLineColor="#eba478" />
+            <Label layoutX="27.0" layoutY="141.0" text="Enable auto face detection" textFill="#bfb1b1">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Label>
+            <Separator layoutX="27.0" layoutY="195.0" opacity="0.45" prefHeight="4.0" prefWidth="321.0" />
+            <JFXSlider layoutX="22.0" layoutY="246.0" prefHeight="16.0" prefWidth="308.0" />
+            <Label layoutX="21.0" layoutY="215.0" text="SCREEN BRIGHTNESS" textFill="#c3b8b8">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <JFXCheckBox checkedColor="#eda678" layoutX="22.0" layoutY="286.0" text="AUTO BRIGHTNESS" textFill="#c3bcbc" />
+            <JFXButton layoutX="50.0" layoutY="319.0" onAction="#onCancelClicked" prefHeight="26.0" prefWidth="117.0" style="-fx-background-color: #515d68; -fx-background-radius: 5cm; -fx-border-radius: 5cm;" text="Cancel" textFill="#eeeaea" />
+            <JFXButton layoutX="220.0" layoutY="319.0" onAction="#onSaveClicked" prefHeight="26.0" prefWidth="132.0" style="-fx-background-color: #EDA678; -fx-border-radius: 5cm; -fx-background-radius: 5cm;" text="Save" />
+            <ImageView fitHeight="51.0" fitWidth="32.0" layoutX="31.0" layoutY="-24.0" pickOnBounds="true">
+               <image>
+                  <Image url="@Images/icons8-sort-up-602.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
