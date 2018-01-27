@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="552.0" prefWidth="959.0" style="-fx-background-color: #20120F;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="framework.ProjectViewController">
+<AnchorPane fx:id="mainAnchor" onMouseDragged="#mainAnchorMouseDragged" onMousePressed="#mainAnchorMousePressed" prefHeight="552.0" prefWidth="959.0" style="-fx-background-color: #20120F;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="framework.ProjectViewController">
     <children>
         <ImageView fitHeight="552.0" fitWidth="553.0" opacity="0.54" pickOnBounds="true">
             <image>

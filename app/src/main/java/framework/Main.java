@@ -1,6 +1,8 @@
 package framework;
 
 import javafx.application.Application;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -9,7 +11,10 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.web3j.crypto.Credentials;
+import org.web3j.crypto.WalletUtils;
 import org.web3j.protocol.Web3j;
+import org.web3j.protocol.core.methods.response.Web3ClientVersion;
 import org.web3j.protocol.http.HttpService;
 
 import java.net.Authenticator;
@@ -20,6 +25,9 @@ public class Main extends Application {
     Stage window;
     static String fullName, publicKey, walletFileAddress;
     protected  static Web3j web3j;
+    protected static Credentials credentials;
+    protected static CommunityWork contractCw;
+    protected static Web3ClientVersion web3ClientVersion;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -28,6 +36,13 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("../../resources/MainUI1.fxml"));
         window.setTitle("Ether Samaj");
         window.initStyle(StageStyle.TRANSPARENT);
+
+        System.out.println("setting Web3j");
+//        MainUiController obj = new MainUiController();
+//        obj.web3Function();
+
+
+        System.out.println("web3j setup complete");
 
         final double[] xoffset = new double[1];  // This is because variables used in lambda expression should
         final double[] yoffset = new double[1];  // final or effectively final. And IDE suggested this method
@@ -67,4 +82,6 @@ public class Main extends Application {
 //        System.setProperty("http.proxyPassword", authPassword);
         launch(args);
     }
+
+
 }

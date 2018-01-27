@@ -116,7 +116,7 @@ public class MainUiController extends Thread implements Initializable  {
     @FXML
     AnchorPane mainAnchor;
     @FXML
-    JFXButton newsitem1, settingsButton, aboutUsButton;
+    JFXButton newsitem1, settingsButton, aboutUsButton, commWorkButton, commFundButton, medicalFundButton;
     @FXML
     Label trendlbl1, trendlbl2, trendlbl3, exitLabel, nameLabel, publicKeyLabel, etherBalanceLabel;
     @FXML
@@ -136,9 +136,12 @@ public class MainUiController extends Thread implements Initializable  {
 
     static BalanceSetter bs;
 
-    Service<Void> bkgThread;
+    Service<Void> bkgThread, contractThread, balanceThread, cwThread, coinThread;
 
-    Web3j web3j;
+    //Web3j web3j;
+    //static Web3ClientVersion web3ClientVersion;
+    //static Credentials credentials;
+    //static CommunityWork contractCW, contractCF, contractMF;
 
     final double[] xoffset = new double[1];  // This is because variables used in lambda expression should
     final double[] yoffset = new double[1];  // final or effectively final. And IDE suggested this method
@@ -149,12 +152,14 @@ public class MainUiController extends Thread implements Initializable  {
         b1.bind(bitcoinPrice);
         e1.bind(ethPrice);
         d1.bind(dashPrice);
+        System.out.println("Binding Done");
 
         initPopup();
         drawer.close();
         AnchorPane ap = null;
         try {
             ap = FXMLLoader.load(getClass().getResource("../../resources/SlideInPane.fxml"));
+            System.out.println("SlidePane accessed");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -162,6 +167,12 @@ public class MainUiController extends Thread implements Initializable  {
 
         drawer.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
             drawer.open();
+
+            try{
+
+            }catch(Exception ex){
+
+            }
         });
 
         drawer.addEventHandler(MouseEvent.MOUSE_EXITED, e -> {
@@ -173,57 +184,118 @@ public class MainUiController extends Thread implements Initializable  {
 
         TimeSetter ts = new TimeSetter(timeLabel);
         ts.start();
+        System.out.println("Time Set");
 
 
         nameLabel.setText(Main.fullName);
         publicKeyLabel.setText(Main.publicKey);
-        web3j = Main.web3j;
-        web3j = Web3j.build(new HttpService("https://rinkeby.infura.io/Nb9v0iQy5LYKUBBYu3Hp"));
+        //Main.web3j = Main.web3j;
+
         //web3Function();
 
 //        NewsLoader nl = new NewsLoader();
 //        nl.start();
 
         try{
-//            Stage loadingStage = new Stage();
-//            Parent root = FXMLLoader.load(getClass().getResource("../../resources/LoadingView.fxml"));
-//            loadingStage.initStyle(StageStyle.TRANSPARENT);
-//            Scene loadingScene = new Scene(root);
-//            loadingScene.setFill(Color.TRANSPARENT);
-//            loadingStage.setScene(loadingScene);
-//            loadingStage.show();
-
-            loadNews();
+            System.out.println("going to load news");
+            //loadNews();
+            System.out.println("News Done");
+            web3Function();
+            System.out.println("news and web3 finished");
         }catch(Exception e){
-
+            e.printStackTrace();
         }
-
 
     }
 
+
     public void web3Function(){
+        contractThread = new Service<Void>() {
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    @Override
+                    protected Void call() throws Exception {
+                        try{
+                            Main.web3j = Web3j.build(new HttpService("https://rinkeby.infura.io/Nb9v0iQy5LYKUBBYu3Hp"));
+                            Main.web3ClientVersion = Main.web3j.web3ClientVersion().send();
+                            String clientVersion = Main.web3ClientVersion.getWeb3ClientVersion();
+                            System.out.println(clientVersion);
+
+                           Main.credentials = WalletUtils.loadCredentials("123456789","/home/aks/.ethereum/testnet/keystore/UTC--2018-01-22T10-02-54.636000000Z--e470a002afbd470488fa4dc8ccf8089878b8b683.json"/*LoginController.password, Main.walletFileAddress*/);
+                            System.out.println("Credentials: "+Main.credentials.toString());
+                        }
+                        catch (Exception e)
+                        {
+                            e.printStackTrace();
+                        }
+                        return null;
+                    }
+                };
+            }
+        };
+
+        contractThread.restart();
+
         try {
-            Web3ClientVersion web3ClientVersion = web3j.web3ClientVersion().send();
-            String clientVersion = web3ClientVersion.getWeb3ClientVersion();
-            System.out.println(clientVersion);
 
-            Credentials credentials = WalletUtils.loadCredentials("123456789","/home/aks/.ethereum/testnet/keystore/UTC--2018-01-22T10-02-54.636000000Z--e470a002afbd470488fa4dc8ccf8089878b8b683.json"/*LoginController.password, Main.walletFileAddress*/);
-            System.out.println("Credentials: "+credentials.toString());
 
-            CommunityWork contract = CommunityWork.load(
-                    "0x3a974d6c802bbb0d388783c291c5da19bc335dd3", web3j, credentials, ManagedTransaction.GAS_PRICE, Contract.GAS_LIMIT);
 
-            BigInteger projectID=BigInteger.valueOf(10L);
-            TransactionReceipt transactionReceipt = contract.projectDeployer("0xe470a002afbd470488fa4dc8ccf8089878b8b683",BigInteger.ONE, "This is sample project 1",BigInteger.valueOf(2L),BigInteger.valueOf(60),projectID,BigInteger.ZERO).send();
-            System.out.println("TransactionReceipt: "+transactionReceipt.toString());
-            Tuple3<BigInteger, BigInteger, BigInteger> result = contract.getProjectValues(projectID).send();
-            System.out.println("Allocated Fund "+result.getValue1());
-            System.out.println("Target Amount "+result.getValue2());
-            System.out.println("Funding Duration "+result.getValue3());
+
+//            BigInteger projectID=BigInteger.valueOf(10L);
+//            TransactionReceipt transactionReceipt = contract.projectDeployer("0xe470a002afbd470488fa4dc8ccf8089878b8b683",BigInteger.ONE, "This is sample project 1",BigInteger.valueOf(2L),BigInteger.valueOf(60),projectID,BigInteger.ZERO).send();
+//            System.out.println("TransactionReceipt: "+transactionReceipt.toString());
+//            Tuple3<BigInteger, BigInteger, BigInteger> result = contract.getProjectValues(projectID).send();
+//            System.out.println("Allocated Fund "+result.getValue1());
+//            System.out.println("Target Amount "+result.getValue2());
+//            System.out.println("Funding Duration "+result.getValue3());
         }catch(Exception e){
             e.printStackTrace();
         }
     }
+
+    @FXML
+    public  void commWorkClicked()
+    {
+        cwThread = new Service<Void>() {
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    @Override
+                    protected Void call() throws Exception {
+                        try{
+                            Main.contractCw=CommunityWork.load(
+                                    "0x4243d91ec3181a57ed807a0f6379bfb3530b8711", Main.web3j, Main.credentials, ManagedTransaction.GAS_PRICE, Contract.GAS_LIMIT);
+                        }
+                        catch (Exception e)
+                        {
+                            e.printStackTrace();
+                        }
+                        return null;
+                    }
+                };
+            }
+        };
+
+        cwThread.setOnSucceeded(e->{
+//            SlidePaneController obj=new SlidePaneController();
+//            obj.updateProjectsView();
+            SlidePaneController.updateProjectsView();
+        });
+
+        cwThread.restart();
+    }
+
+    @FXML
+    public void commFundClicked(){
+
+    }
+
+    @FXML
+    public void medicalFundClicked(){
+
+    }
+
 
     public void initPopup(){
         JFXButton b1 = new JFXButton("task1");
@@ -350,7 +422,7 @@ public class MainUiController extends Thread implements Initializable  {
 
     @FXML
     public void coinSetter(){
-        bkgThread = new Service<Void>() {
+        coinThread = new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
                 return new Task<Void>() {
@@ -366,9 +438,13 @@ public class MainUiController extends Thread implements Initializable  {
                             BufferedReader stdInput1 = new BufferedReader(new InputStreamReader(p1.getInputStream()));
                             Double con=0.0;
                             try {
-                                con = Double.parseDouble((str = stdInput1.readLine()));
+                                System.out.println("Con:"+con);
+                                str = stdInput1.readLine();
+                                con = Double.parseDouble(str);
+                                System.out.println("Con parsed");
                             }catch(Exception e){
                                 e.printStackTrace();
+                                con = 62.50;
                             }
 
                             try {
@@ -392,7 +468,7 @@ public class MainUiController extends Thread implements Initializable  {
             }
         };
 
-        bkgThread.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+        coinThread.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
             @Override
             public void handle(WorkerStateEvent event) {
                 bitcoinDollar.setText(b1.getValue());
@@ -403,7 +479,7 @@ public class MainUiController extends Thread implements Initializable  {
                 dashRup.setText(""+(Double.parseDouble(d1.getValue()))*Double.parseDouble(exchange.getValue()));
             }
         });
-        bkgThread.restart();
+        coinThread.restart();
     }
 
     @FXML
@@ -427,11 +503,12 @@ public class MainUiController extends Thread implements Initializable  {
 
     public void loadNews(){
         // TODO: Load news
+        System.out.println("In news Method");
         try {
-//            ProcessBuilder processBuilder = new ProcessBuilder("python", "/home/surbhit/Desktop/PassBook/src/sample/CryptocurrencyNews.py");
-//            Process process = processBuilder.start();
+            ProcessBuilder processBuilder = new ProcessBuilder("python", "/home/aks/Documents/Hack36/src/main/resources/CryptocurrencyNews.py");
+            Process process = processBuilder.start();
 
-            Process process = Runtime.getRuntime().exec("python /home/aks/Documents/Hack36/src/main/resources/CryptocurrencyNews.py");
+            //Process process = Runtime.getRuntime().exec("python /home/aks/Documents/Hack36/src/main/resources/CryptocurrencyNews.py");
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String S;
@@ -503,19 +580,19 @@ public class MainUiController extends Thread implements Initializable  {
 //        bs = new BalanceSetter(etherBalanceLabel);
 //        bs.setDaemon(true);
 //        bs.start();
-
+        System.out.println("Fetching balance");
 
 
         // TODO: Start service
 
-        bkgThread = new Service<Void>() {
+       balanceThread = new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
                 return new Task<Void>() {
                     @Override
                     protected Void call() throws Exception {
                         try{
-                            String str;
+                            String str;                                                                         // TODO: replace with userPublic key
                             Process p1 = Runtime.getRuntime().exec("python /home/aks/Documents/Hack36/src/main/resources/Balance.py "+"0xE470A002AFBD470488FA4dc8cCF8089878b8b683");
                             BufferedReader br = new BufferedReader(new InputStreamReader(p1.getInputStream()));
 
@@ -539,13 +616,13 @@ public class MainUiController extends Thread implements Initializable  {
             }
         };
 
-        bkgThread.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+        balanceThread.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
             @Override
             public void handle(WorkerStateEvent event) {
                 etherBalanceLabel.setText(balanceFromBalanceSetter);
             }
         });
-        bkgThread.restart();
+        balanceThread.restart();
 
 
 

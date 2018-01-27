@@ -4,6 +4,7 @@ import org.web3j.crypto.CipherException;
 import org.web3j.crypto.Credentials;
 import org.web3j.crypto.WalletUtils;
 import org.web3j.protocol.Web3j;
+import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.protocol.core.methods.response.Web3ClientVersion;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.tx.Contract;
@@ -38,10 +39,25 @@ public class test
             Credentials credentials = WalletUtils.loadCredentials("123456789", "/home/aks/.ethereum/testnet/keystore/UTC--2018-01-22T10-02-54.636000000Z--e470a002afbd470488fa4dc8ccf8089878b8b683.json");
             System.out.println("Credentials: " + credentials.toString());
 
-            CommunityWork contract = CommunityWork.deploy(web3j, credentials, ManagedTransaction.GAS_PRICE, Contract.GAS_LIMIT, BigInteger.valueOf(0L)).send();
-            String contractAddress = contract.getContractAddress();
-            System.out.println("contract add: "+contractAddress);
+//            CommunityWork contract = CommunityWork.deploy(web3j, credentials, ManagedTransaction.GAS_PRICE, Contract.GAS_LIMIT, BigInteger.valueOf(0L)).send();
+//            String contractAddress = contract.getContractAddress();
+//            Mortal mortalCon = Mortal.deploy(web3j, credentials, ManagedTransaction.GAS_PRICE, Contract.GAS_LIMIT).send();
+//            String mortalConAddress = mortalCon.getContractAddress();
+//            System.out.println("contract add: "+contractAddress);
+//            System.out.println("contract add(mortal): "+mortalConAddress);
 
+            CommunityWork contract = CommunityWork.load(
+                    "0x4243d91ec3181a57ed807a0f6379bfb3530b8711", web3j, credentials, ManagedTransaction.GAS_PRICE, Contract.GAS_LIMIT);
+            TransactionReceipt receipt = contract.projectDeployer("0xe470a002afbd470488fa4dc8ccf8089878b8b683",BigInteger.ONE,"Sample Project 1",BigInteger.valueOf(2), BigInteger.valueOf(500),BigInteger.TEN,BigInteger.ZERO).send();
+            TransactionReceipt receipt1 = contract.projectDeployer("0xe470a002afbd470488fa4dc8ccf8089878b8b683",BigInteger.ONE,"Sample Project 2",BigInteger.valueOf(2), BigInteger.valueOf(500),BigInteger.valueOf(20),BigInteger.ONE).send();
+            TransactionReceipt receipt2 = contract.projectDeployer("0xe470a002afbd470488fa4dc8ccf8089878b8b683",BigInteger.ONE,"Sample Project 3",BigInteger.valueOf(2), BigInteger.valueOf(500),BigInteger.valueOf(30),BigInteger.ONE).send();
+            TransactionReceipt receipt3 = contract.projectDeployer("0xe470a002afbd470488fa4dc8ccf8089878b8b683",BigInteger.ONE,"Sample Project 4",BigInteger.valueOf(2), BigInteger.valueOf(500),BigInteger.valueOf(40),BigInteger.ONE).send();
+            TransactionReceipt receipt4 = contract.projectDeployer("0xe470a002afbd470488fa4dc8ccf8089878b8b683",BigInteger.ONE,"Sample Project 5",BigInteger.valueOf(2), BigInteger.valueOf(500),BigInteger.valueOf(50),BigInteger.ONE).send();
+            System.out.println(receipt);
+            System.out.println(receipt1);
+            System.out.println(receipt2);
+            System.out.println(receipt3);
+            System.out.println(receipt4);
         }
 
         catch(Exception ex)

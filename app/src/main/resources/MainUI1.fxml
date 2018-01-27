@@ -289,7 +289,7 @@
                </image>
             </ImageView>
             <Separator layoutX="22.0" layoutY="271.0" maxHeight="1.0" minHeight="1.0" prefHeight="1.0" prefWidth="175.0" style="-fx-background-color: #ffffff;" />
-            <JFXButton layoutX="2.0" layoutY="184.0" prefHeight="46.0" prefWidth="219.0" text="Medical Funding" textFill="WHITE">
+            <JFXButton fx:id="medicalFundButton" layoutX="2.0" layoutY="184.0" onAction="#medicalFundClicked" prefHeight="46.0" prefWidth="219.0" text="Medical Funding" textFill="WHITE">
                <font>
                   <Font size="17.0" />
                </font>
@@ -297,7 +297,7 @@
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </JFXButton>
-            <JFXButton layoutX="2.0" layoutY="138.0" prefHeight="46.0" prefWidth="219.0" text="Community Funding" textFill="WHITE">
+            <JFXButton fx:id="commFundButton" layoutX="2.0" layoutY="138.0" onAction="#commFundClicked" prefHeight="46.0" prefWidth="219.0" text="Community Funding" textFill="WHITE">
                <font>
                   <Font size="17.0" />
                </font>
@@ -305,7 +305,7 @@
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </JFXButton>
-            <JFXButton layoutX="2.0" layoutY="92.0" prefHeight="46.0" prefWidth="219.0" text="Community Work" textFill="WHITE">
+            <JFXButton fx:id="commWorkButton" layoutX="2.0" layoutY="92.0" onAction="#commWorkClicked" prefHeight="46.0" prefWidth="219.0" text="Community Work" textFill="WHITE">
                <font>
                   <Font size="17.0" />
                </font>

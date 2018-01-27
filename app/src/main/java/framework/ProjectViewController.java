@@ -1,8 +1,10 @@
 package framework;
 
+import com.jfoenix.controls.JFXButton;
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -10,6 +12,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -26,13 +31,21 @@ import org.web3j.tx.Contract;
 import org.web3j.tx.ManagedTransaction;
 
 import javax.xml.soap.Text;
+
 import java.math.BigInteger;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ProjectViewController implements Initializable {
 
-    BigInteger projectId;
+    int projectId;
+    final double[] xoffset = new double[1];  // This is because variables used in lambda expression should
+    final double[] yoffset = new double[1];  // final or effectively final. And IDE suggested this method
+
+    Stage window;
+    int count;
+    @FXML
+    AnchorPane mainAnchor;
 
     public static String getProjectDescriptionProp() {
         return projectDescriptionProp.get();
@@ -66,20 +79,56 @@ public class ProjectViewController implements Initializable {
             projectDescriptionLabel.setText(newVal.toString());
         });
 
-        executeProjectDetailsThread();
+        //System.out.println(""+projectId);
+
+        //executeProjectDetailsThread();
     }
 
     void executeProjectDetailsThread(){
-        ProjectDetails pr = new ProjectDetails(projectId);
-        pr.start();
+//        ProjectDetails pr = new ProjectDetails(projectId);
+//        pr.start();
     }
 
-    public void onExit(){
 
+    public void mainAnchorMousePressed(MouseEvent evt){
+        xoffset[0] = evt.getSceneX();
+        yoffset[0] = evt.getSceneY();
     }
 
-    public void onBack(){
+    @FXML
+    public void mainAnchorMouseDragged(MouseEvent evt){
+        try {
+            window.setX(evt.getScreenX() - xoffset[0]);
+            window.setY(evt.getScreenY() - yoffset[0]);
+        }catch (Exception e){
+            oneTimeMouseClicked(evt);
 
+        }
+    }
+
+    @FXML
+    public void oneTimeMouseClicked(MouseEvent evt){
+        if(count==0) {
+            window = (Stage) mainAnchor.getScene().getWindow();
+            count++;
+
+        }
+    }
+
+
+
+
+    @FXML
+    public void onExit(MouseEvent evt){
+        ((Stage)((Label)evt.getSource()).getScene().getWindow()).close();
+    }
+    @FXML
+    public void onBack(MouseEvent evt){
+        ((Stage)((ImageView)evt.getSource()).getScene().getWindow()).close();
+    }
+
+    public void setProjectId(int id){
+        this.projectId = id;
     }
 
     public void onFundProjectButtonClicked(){
