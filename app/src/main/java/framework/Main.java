@@ -12,6 +12,9 @@ import javafx.stage.StageStyle;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.http.HttpService;
 
+import java.net.Authenticator;
+import java.net.PasswordAuthentication;
+
 public class Main extends Application {
 
     Stage window;
@@ -24,8 +27,6 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("../../resources/LoginView.fxml"));
         window.setTitle("Ether Samaj");
         window.initStyle(StageStyle.TRANSPARENT);
-
-        web3j = Web3j.build(new HttpService("https://rinkeby.infura.io/Nb9v0iQy5LYKUBBYu3Hp"));
 
         final double[] xoffset = new double[1];  // This is because variables used in lambda expression should
         final double[] yoffset = new double[1];  // final or effectively final. And IDE suggested this method
@@ -49,7 +50,20 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
-
+//        final String authUser = "edcguest";
+//        final String authPassword = "edcguest";
+//        Authenticator.setDefault(
+//                new Authenticator() {
+//                    @Override
+//                    public PasswordAuthentication getPasswordAuthentication() {
+//                        return new PasswordAuthentication(authUser, authPassword.toCharArray());
+//                    }
+//                }
+//        );
+//        System.setProperty("http.proxyHost", "172.31.52.54");
+//        System.setProperty("http.proxyPort", "3128");
+//        System.setProperty("http.proxyUser", authUser);
+//        System.setProperty("http.proxyPassword", authPassword);
         launch(args);
     }
 }

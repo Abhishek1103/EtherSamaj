@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.shape.Line?>
 <AnchorPane fx:id="mainAnchor" onMouseClicked="#oneTimeMouseClicked" onMouseDragged="#mainAnchorMouseDragged" onMousePressed="#mainAnchorMousePressed" prefHeight="720.0" prefWidth="1284.0" style="-fx-background-radius: 3;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="framework.MainUiController">
    <children>
       <AnchorPane layoutX="215.0" layoutY="165.0" style="-fx-background-color: #ffffff;">
@@ -184,12 +185,27 @@
                </cursor>
             </AnchorPane>
             <Separator layoutX="597.0" layoutY="111.0" orientation="VERTICAL" prefHeight="342.0" prefWidth="7.0" />
-            <AnchorPane layoutX="619.0" layoutY="98.0" prefHeight="376.0" prefWidth="219.0">
+            <AnchorPane fx:id="q" layoutX="619.0" layoutY="98.0" prefHeight="376.0" prefWidth="219.0">
                <children>
-                  <JFXButton fx:id="newsitem1" buttonType="RAISED" layoutY="34.0" prefHeight="67.0" prefWidth="219.0" style="-fx-background-color: #f2f2f2; -fx-background-radius: 10;" text="News Item" textAlignment="CENTER" textFill="#3f3b3b" wrapText="true" />
-                  <JFXButton buttonType="RAISED" layoutY="124.0" prefHeight="67.0" prefWidth="219.0" style="-fx-background-color: #f2f2f2; -fx-background-radius: 10;" text="News Item" textAlignment="CENTER" textFill="#3f3b3b" wrapText="true" />
-                  <JFXButton buttonType="RAISED" layoutY="210.0" prefHeight="67.0" prefWidth="219.0" style="-fx-background-color: #f2f2f2; -fx-background-radius: 10;" text="News Item" textAlignment="CENTER" textFill="#3f3b3b" wrapText="true" />
-                  <JFXButton buttonType="RAISED" layoutY="301.0" prefHeight="67.0" prefWidth="219.0" style="-fx-background-color: #f2f2f2; -fx-background-radius: 10;" text="News Item" textAlignment="CENTER" textFill="#3f3b3b" wrapText="true" />
+                  <Label fx:id="newsLabel1" alignment="CENTER" onMouseClicked="#newsLabel1Clicked" onMouseEntered="#newsLabel1Entered" onMouseExited="#newsLabel1Exited" prefHeight="94.0" prefWidth="228.0" style="-fx-background-color: white;" text="Label" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Label>
+                  <Label fx:id="newsLabel2" alignment="CENTER" layoutY="92.0" onMouseClicked="#newsLabel2Clicked" onMouseEntered="#newsLabel2Entered" onMouseExited="#newsLabel2Exited" prefHeight="94.0" prefWidth="228.0" style="-fx-background-color: white;" text="Label" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Label>
+                  <Label fx:id="newsLabel3" alignment="CENTER" layoutY="186.0" onMouseClicked="#newsLabel3Clicked" onMouseEntered="#newsLabel3Entered" onMouseExited="#newsLabel3Exited" prefHeight="94.0" prefWidth="228.0" style="-fx-background-color: white;" text="Label" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Label>
+                  <Label fx:id="newsLabel4" alignment="CENTER" layoutY="280.0" onMouseClicked="#newsLabel4Clicked" onMouseEntered="#newsLabel4Entered" onMouseExited="#newsLabel4Exited" prefHeight="94.0" prefWidth="228.0" style="-fx-background-color: white;" text="Label" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Label>
+                  <Line endX="112.0" endY="1.0" layoutX="113.0" layoutY="92.0" startX="-113.0" />
+                  <Line endX="112.0" endY="1.0" layoutX="113.0" layoutY="185.0" startX="-113.0" />
+                  <Line endX="112.0" endY="1.0" layoutX="114.0" layoutY="279.0" startX="-113.0" />
                </children>
             </AnchorPane>
             <Label fx:id="trendingLabel" alignment="CENTER" layoutX="386.0" layoutY="55.0" prefHeight="36.0" prefWidth="110.0" text="Trending" underline="true">

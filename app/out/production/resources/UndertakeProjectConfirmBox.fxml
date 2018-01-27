@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.Glow?>
 <?import javafx.scene.effect.MotionBlur?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -12,17 +13,16 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="367.0" prefWidth="604.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="framework.UndertakeProjectConfirmController">
    <children>
       <BorderPane prefHeight="366.0" prefWidth="604.0">
          <bottom>
             <AnchorPane prefHeight="64.0" prefWidth="604.0" style="-fx-background-color: #c0c2c4;" BorderPane.alignment="CENTER">
                <children>
-                  <JFXButton buttonType="RAISED" layoutX="350.0" layoutY="22.0" prefHeight="26.0" prefWidth="85.0" style="-fx-background-color: #bf1111;" text="No" textFill="WHITE" />
-                  <JFXButton buttonType="RAISED" layoutX="475.0" layoutY="22.0" prefHeight="26.0" prefWidth="87.0" style="-fx-background-color: #0c8dc9;" text="Yes" textFill="WHITE" />
+                  <JFXButton fx:id="noButton" buttonType="RAISED" layoutX="350.0" layoutY="22.0" onAction="#onNo" prefHeight="26.0" prefWidth="85.0" style="-fx-background-color: #bf1111;" text="No" textFill="WHITE" />
+                  <JFXButton fx:id="yesButton" buttonType="RAISED" layoutX="475.0" layoutY="22.0" onAction="#onYes" prefHeight="26.0" prefWidth="87.0" style="-fx-background-color: #0c8dc9;" text="Yes" textFill="WHITE" />
                   <Separator layoutX="4.0" layoutY="-2.0" prefHeight="4.0" prefWidth="598.0" />
-                  <JFXToggleButton layoutX="26.0" layoutY="2.0" text="Accept  Terms and Conditions" textFill="#9e2b2b" toggleColor="#0f6aaf" toggleLineColor="#0c8dc9" />
+                  <JFXToggleButton fx:id="toggleButton" layoutX="26.0" layoutY="2.0" text="Accept  Terms and Conditions" textFill="#9e2b2b" toggleColor="#0f6aaf" toggleLineColor="#0c8dc9" />
                </children>
             </AnchorPane>
          </bottom>
@@ -34,6 +34,17 @@
                         <MotionBlur />
                      </effect>
                   </ImageView>
+                  <Label layoutX="91.0" layoutY="32.0" prefHeight="35.0" prefWidth="359.0" text="Terms and Conditions :" underline="true">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <effect>
+                        <Glow />
+                     </effect>
+                  </Label>
+                  <Label layoutX="106.0" layoutY="85.0" prefHeight="16.0" prefWidth="494.0" text="Funds Will be transferred Only after successful completion of project." />
+                  <Label layoutX="107.0" layoutY="101.0" prefHeight="38.0" prefWidth="464.0" text="In case of abandonment of project no partial payment will be done." wrapText="true" />
+                  <Label layoutX="106.0" layoutY="139.0" prefHeight="36.0" prefWidth="451.0" text="Status of completion and quality of work done is subject to the scrutiny and verification of the community" wrapText="true" />
                </children>
             </AnchorPane>
          </center>

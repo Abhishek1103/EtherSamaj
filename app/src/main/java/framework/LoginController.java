@@ -114,7 +114,7 @@ public class LoginController implements Initializable {
         System.exit(0);
     }
 
-    public void showAlert( String title, String headerText, String contentText){
+    public static  void showAlert( String title, String headerText, String contentText){
         Alert a = new Alert(Alert.AlertType.ERROR);
         a.setHeaderText(headerText);
         a.setContentText(contentText);

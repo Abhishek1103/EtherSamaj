@@ -25,6 +25,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import org.web3j.abi.datatypes.Type;
+import org.web3j.abi.datatypes.generated.Bytes32;
+import org.web3j.abi.datatypes.generated.Bytes8;
 import org.web3j.crypto.Credentials;
 import org.web3j.crypto.Wallet;
 import org.web3j.crypto.WalletFile;
@@ -32,15 +35,22 @@ import org.web3j.crypto.WalletUtils;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.protocol.core.methods.response.Web3ClientVersion;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.tuples.generated.Tuple2;
+import org.web3j.tuples.generated.Tuple3;
+import org.web3j.tx.Contract;
+import org.web3j.tx.ManagedTransaction;
 
 import javax.script.ScriptContext;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.SimpleScriptContext;
 import java.io.*;
+import java.math.BigInteger;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.ResourceBundle;
 
@@ -63,6 +73,10 @@ public class MainUiController extends Thread implements Initializable  {
     Label timeLabel, balancelbl;
     Stage window;
 
+    @FXML Label newsLabel1, newsLabel2, newsLabel3, newsLabel4;
+
+    String[] webArray = new String[4];
+
     static CoinSetter cs;
     static BalanceSetter bs;
 
@@ -73,6 +87,39 @@ public class MainUiController extends Thread implements Initializable  {
     int count=0;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        /********************************************************
+
+        try {
+            ProcessBuilder processBuilder = new ProcessBuilder("python", "/home/surbhit/Desktop/PassBook/src/sample/CryptocurrencyNews.py");
+            Process process = processBuilder.start();
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+
+            String S;
+            int i = 0;
+            while((S = reader.readLine()) != null && i != 4)
+            {
+                webArray[i] = S.substring(S.indexOf("http"),S.indexOf("/'")+1);
+                switch (i) {
+                    case 0:
+                        newsLabel1.setText(S.substring(3, S.indexOf(", '\\n'")-1));
+                        break;
+                    case 1: newsLabel2.setText(S.substring(3, S.indexOf(", '\\n'")-1));
+                        break;
+                    case 2: newsLabel3.setText(S.substring(3, S.indexOf(", '\\n'")-1));
+                        break;
+                    case 3: newsLabel4.setText(S.substring(3, S.indexOf(", '\\n'")-1));
+                }
+                i++;
+            }
+
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        *********************************************************/
 
         initPopup();
         drawer.close();
@@ -102,6 +149,32 @@ public class MainUiController extends Thread implements Initializable  {
         nameLabel.setText(Main.fullName);
         publicKeyLabel.setText(Main.publicKey);
         web3j = Main.web3j;
+        web3j = Web3j.build(new HttpService("https://rinkeby.infura.io/Nb9v0iQy5LYKUBBYu3Hp"));
+        web3Function();
+    }
+
+    public void web3Function(){
+        try {
+            Web3ClientVersion web3ClientVersion = web3j.web3ClientVersion().send();
+            String clientVersion = web3ClientVersion.getWeb3ClientVersion();
+            System.out.println(clientVersion);
+
+            Credentials credentials = WalletUtils.loadCredentials("123456789","/home/aks/.ethereum/testnet/keystore/UTC--2018-01-22T10-02-54.636000000Z--e470a002afbd470488fa4dc8ccf8089878b8b683.json"/*LoginController.password, Main.walletFileAddress*/);
+            System.out.println("Credentials: "+credentials.toString());
+
+            CommunityWork contract = CommunityWork.load(
+                    "0x3a974d6c802bbb0d388783c291c5da19bc335dd3", web3j, credentials, ManagedTransaction.GAS_PRICE, Contract.GAS_LIMIT);
+
+            BigInteger projectID=BigInteger.valueOf(10L);
+            TransactionReceipt transactionReceipt = contract.projectDeployer("0xe470a002afbd470488fa4dc8ccf8089878b8b683",BigInteger.ONE, "This is sample project 1",BigInteger.valueOf(2L),BigInteger.valueOf(60),projectID,BigInteger.ZERO).send();
+            System.out.println("TransactionReceipt: "+transactionReceipt.toString());
+            Tuple3<BigInteger, BigInteger, BigInteger> result = contract.getProjectValues(projectID).send();
+            System.out.println("Allocated Fund "+result.getValue1());
+            System.out.println("Target Amount "+result.getValue2());
+            System.out.println("Funding Duration "+result.getValue3());
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void initPopup(){
@@ -114,6 +187,64 @@ public class MainUiController extends Thread implements Initializable  {
         VBox vbox = new VBox(b1, b2, b3);
         popup = new JFXPopup(vbox);
 
+    }
+
+
+    @FXML public void newsLabel1Entered(MouseEvent event) {
+        newsLabel1.setStyle("-fx-font-weight: bold; -fx-font-style: italic; -fx-background-color: #808080;");
+    }
+    @FXML public void newsLabel2Entered(MouseEvent event) {
+        newsLabel2.setStyle("-fx-font-weight: bold; -fx-font-style: italic; -fx-background-color: #808080;");
+    }
+    @FXML public void newsLabel3Entered(MouseEvent event) {
+        newsLabel3.setStyle("-fx-font-weight: bold; -fx-font-style: italic; -fx-background-color: #808080;");
+    }
+    @FXML public void newsLabel4Entered(MouseEvent event) {
+        newsLabel4.setStyle("-fx-font-weight: bold; -fx-font-style: italic; -fx-background-color: #808080;");
+    }
+
+    @FXML public void newsLabel1Clicked(MouseEvent event){
+        System.out.println(webArray[0]);
+
+        if(window == null) {
+            window = (Stage)mainAnchor.getScene().getWindow();
+        }
+        window.setOpacity(0);
+    }
+    @FXML public void newsLabel2Clicked(MouseEvent event){
+        System.out.println(webArray[1]);
+
+        if(window == null) {
+            window = (Stage)mainAnchor.getScene().getWindow();
+        }
+        window.setOpacity(0);
+    }
+    @FXML public void newsLabel3Clicked(MouseEvent event){
+        System.out.println(webArray[2]);
+
+        if(window == null) {
+            window = (Stage)mainAnchor.getScene().getWindow();
+        }
+    }
+    @FXML public void newsLabel4Clicked(MouseEvent event){
+        System.out.println(webArray[3]);
+
+        if(window == null) {
+            window = (Stage)mainAnchor.getScene().getWindow();
+        }
+    }
+
+    @FXML public void newsLabel1Exited(MouseEvent event) {
+        newsLabel1.setStyle("-fx-background-color: WHITE;");
+    }
+    @FXML public void newsLabel2Exited(MouseEvent event) {
+        newsLabel2.setStyle("-fx-background-color: WHITE;");
+    }
+    @FXML public void newsLabel3Exited(MouseEvent event) {
+        newsLabel3.setStyle("-fx-background-color: WHITE;");
+    }
+    @FXML public void newsLabel4Exited(MouseEvent event) {
+        newsLabel4.setStyle("-fx-background-color: WHITE;");
     }
 
     @FXML
@@ -237,60 +368,44 @@ public class MainUiController extends Thread implements Initializable  {
         ((Stage)((Label)evt.getSource()).getScene().getWindow()).setIconified(true);
     }
 
-
+    //        }
+    //            e.printStackTrace();
+    //        } catch (IOException e) {
+    //            }
+    //
+    //            }catch (Exception e){
+    //
+    //                dashRup.setText(""+Double.parseDouble(dash)*con);
+    //                ethRup.setText(""+Double.parseDouble(eth)*con);
+    //                bitcoinRup.setText(""+Double.parseDouble(bitcoin)*con);
+    //
+    //                dashDollar.setText(dash);
+    //                ethDollar.setText(eth);
+    //                bitcoinDollar.setText(bitcoin);
+    //                dash = (stdInput1.readLine()).substring(1);
+    //                eth = (stdInput1.readLine()).substring(1);
+    //                bitcoin = (stdInput1.readLine()).substring(1);
+    //            try {
+    //
+    //            }
+    //                e.printStackTrace();
+    //            }catch(Exception e){
+    //                con = Double.parseDouble((str = stdInput1.readLine()));
+    //            try {
+    //            Double con=0.0;
+    //            BufferedReader stdInput1 = new BufferedReader(new InputStreamReader(p.getInputStream()));
+    //            //Process p1 = Runtime.getRuntime().exec("python /home/aks/Documents/Hack36/src/main/resources/CoinRate.py");
+    //
+    //            Process p = pb.start();
+    //            ProcessBuilder pb = new ProcessBuilder("python","/home/aks/Documents/Hack36/src/main/resources/CoinRate.py");
+    //
+    //            String str, bitcoin, eth, dash;
+    //        try {
+    //
 //    public void run(){
-//
-//        try {
-//            String str, bitcoin, eth, dash;
-//
-//            ProcessBuilder pb = new ProcessBuilder("python","/home/aks/Documents/Hack36/src/main/resources/CoinRate.py");
-//            Process p = pb.start();
-//
-//            //Process p1 = Runtime.getRuntime().exec("python /home/aks/Documents/Hack36/src/main/resources/CoinRate.py");
-//            BufferedReader stdInput1 = new BufferedReader(new InputStreamReader(p.getInputStream()));
-//            Double con=0.0;
-//            try {
-//                con = Double.parseDouble((str = stdInput1.readLine()));
-//            }catch(Exception e){
-//                e.printStackTrace();
-//            }
-//
-//            try {
-//                bitcoin = (stdInput1.readLine()).substring(1);
-//                eth = (stdInput1.readLine()).substring(1);
-//                dash = (stdInput1.readLine()).substring(1);
-//                bitcoinDollar.setText(bitcoin);
-//                ethDollar.setText(eth);
-//                dashDollar.setText(dash);
-//
-//                bitcoinRup.setText(""+Double.parseDouble(bitcoin)*con);
-//                ethRup.setText(""+Double.parseDouble(eth)*con);
-//                dashRup.setText(""+Double.parseDouble(dash)*con);
-//
-//            }catch (Exception e){
-//
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+
 //    }
 
-
-    public void web3Function(){
-        try {
-            Web3ClientVersion web3ClientVersion = web3j.web3ClientVersion().send();
-            String clientVersion = web3ClientVersion.getWeb3ClientVersion();
-            System.out.println(clientVersion);
-
-            Credentials credentials = WalletUtils.loadCredentials(LoginController.password, Main.walletFileAddress);
-            System.out.println("Credentials: "+credentials.toString());
-
-            TransactionReceipt transactionReceipt =
-
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
 
 }
 
