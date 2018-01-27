@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="552.0" prefWidth="959.0" style="-fx-background-color: #20120F;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="framework.ProjectViewController">
+<AnchorPane prefHeight="552.0" prefWidth="959.0" style="-fx-background-color: #20120F;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="framework.ProjectViewController">
     <children>
         <ImageView fitHeight="552.0" fitWidth="553.0" opacity="0.54" pickOnBounds="true">
             <image>
@@ -87,7 +87,7 @@
                 <Font size="22.0" />
             </font>
         </Label>
-        <Label layoutX="35.0" layoutY="186.0" prefHeight="16.0" prefWidth="334.0" text="The Realm is Eternal, Where you live forever" textFill="#bcb5b5" />
+        <Label fx:id="projectDescriptionLabel" layoutX="35.0" layoutY="186.0" maxWidth="454.0" prefWidth="454.0" text="The Realm is Eternal, Where you live forever" textFill="#bcb5b5" wrapText="true" />
         <JFXButton fx:id="btnFundProject" buttonType="RAISED" layoutX="158.0" layoutY="460.0" onAction="#onFundProjectButtonClicked" prefHeight="35.0" prefWidth="191.0" style="-fx-background-color: #a31a1a;" text="Fund Project" textFill="#d7d1d1">
          <font>
             <Font size="15.0" />

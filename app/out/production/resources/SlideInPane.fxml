@@ -5,19 +5,18 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="527.0" prefWidth="241.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:controller="framework.SlidePaneController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="527.0" prefWidth="241.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fitHeight="150.0" fitWidth="241.0" layoutX="61.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@Images/icons8-todo-list-100.png" />
          </image>
       </ImageView>
-      <JFXButton layoutX="52.0" layoutY="150.0" prefHeight="75.0" prefWidth="189.0" text="HELLO" />
-      <JFXButton layoutX="53.0" layoutY="226.0" prefHeight="75.0" prefWidth="189.0" text="THIS" />
-      <JFXButton layoutX="52.0" layoutY="301.0" prefHeight="75.0" prefWidth="189.0" text="IS" />
-      <JFXButton layoutX="52.0" layoutY="376.0" prefHeight="75.0" prefWidth="189.0" text="NEW" />
-      <JFXButton layoutX="53.0" layoutY="451.0" prefHeight="75.0" prefWidth="189.0" text="DRAWER" />
+      <JFXButton fx:id="project1" layoutX="52.0" layoutY="150.0" prefHeight="75.0" prefWidth="189.0" text="HELLO" />
+      <JFXButton fx:id="project2" layoutX="53.0" layoutY="226.0" prefHeight="75.0" prefWidth="189.0" text="THIS" />
+      <JFXButton fx:id="project3" layoutX="52.0" layoutY="301.0" prefHeight="75.0" prefWidth="189.0" text="IS" />
+      <JFXButton fx:id="project4" layoutX="52.0" layoutY="376.0" prefHeight="75.0" prefWidth="189.0" text="NEW" />
+      <JFXButton fx:id="project5" layoutX="53.0" layoutY="451.0" prefHeight="75.0" prefWidth="189.0" text="DRAWER" />
       <ImageView fitHeight="527.0" fitWidth="40.0" pickOnBounds="true">
          <image>
             <Image url="@Images/Projects.png" />

@@ -151,7 +151,12 @@ public class LoginController implements Initializable {
             }
             Scene mainScene = new Scene(root);
             Stage window = (Stage) rootPane.getScene().getWindow();
+
             window.setScene(mainScene);
+
+            LoadThread ld = new LoadThread();
+            ld.start();
+
         });
     }
 
@@ -249,4 +254,23 @@ public class LoginController implements Initializable {
     }
 
 
+}
+
+
+class LoadThread extends Thread{
+    public void run(){
+        try{
+            Stage loadingStage = new Stage();
+            Parent root = FXMLLoader.load(getClass().getResource("../../resources/LoadingView.fxml"));
+            //loadingStage.initStyle(StageStyle.TRANSPARENT);
+            Scene loadingScene = new Scene(root);
+            //loadingScene.setFill(Color.TRANSPARENT);
+            loadingStage.setScene(loadingScene);
+            loadingStage.show();
+            sleep(3000);
+            loadingStage.close();
+        }catch(Exception e){
+
+        }
+    }
 }

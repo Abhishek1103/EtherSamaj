@@ -7,8 +7,13 @@ import com.jfoenix.controls.JFXPopup;
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.concurrent.Service;
 import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -16,6 +21,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -45,8 +51,11 @@ import javax.script.ScriptContext;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.SimpleScriptContext;
+import java.awt.*;
 import java.io.*;
 import java.math.BigInteger;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -58,6 +67,52 @@ import static java.lang.Thread.sleep;
 
 public class MainUiController extends Thread implements Initializable  {
 
+    public String getBitcoinPrice() {
+        return bitcoinPrice.get();
+    }
+
+    public StringProperty bitcoinPriceProperty() {
+        return bitcoinPrice;
+    }
+
+    public void setBitcoinPrice(String bitcoinPrice) {
+        this.bitcoinPrice.set(bitcoinPrice);
+    }
+
+    StringProperty bitcoinPrice = new SimpleStringProperty(this,"bitcoinPrice", "11178.50");
+
+    public String getEthPrice() {
+        return ethPrice.get();
+    }
+
+    public StringProperty ethPriceProperty() {
+        return ethPrice;
+    }
+
+    public void setEthPrice(String ethPrice) {
+        this.ethPrice.set(ethPrice);
+    }
+
+    StringProperty ethPrice = new SimpleStringProperty(this,"ethPrice","7056.48");
+
+    public String getDashPrice() {
+        return dashPrice.get();
+    }
+
+    public StringProperty dashPriceProperty() {
+        return dashPrice;
+    }
+
+    public void setDashPrice(String dashPrice) {
+        this.dashPrice.set(dashPrice);
+    }
+
+    StringProperty dashPrice = new SimpleStringProperty(this,"dashPrice","756.32");
+    StringProperty b1 = new SimpleStringProperty();
+    StringProperty e1 = new SimpleStringProperty();
+    StringProperty d1 = new SimpleStringProperty();
+    StringProperty exchange = new SimpleStringProperty();
+    String balanceFromBalanceSetter;
     @FXML
     AnchorPane mainAnchor;
     @FXML
@@ -72,13 +127,16 @@ public class MainUiController extends Thread implements Initializable  {
     @FXML
     Label timeLabel, balancelbl;
     Stage window;
+    @FXML
+    ImageView newsIcon;
 
     @FXML Label newsLabel1, newsLabel2, newsLabel3, newsLabel4;
 
     String[] webArray = new String[4];
 
-    static CoinSetter cs;
     static BalanceSetter bs;
+
+    Service<Void> bkgThread;
 
     Web3j web3j;
 
@@ -88,38 +146,9 @@ public class MainUiController extends Thread implements Initializable  {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        /********************************************************
-
-        try {
-            ProcessBuilder processBuilder = new ProcessBuilder("python", "/home/surbhit/Desktop/PassBook/src/sample/CryptocurrencyNews.py");
-            Process process = processBuilder.start();
-
-            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-
-            String S;
-            int i = 0;
-            while((S = reader.readLine()) != null && i != 4)
-            {
-                webArray[i] = S.substring(S.indexOf("http"),S.indexOf("/'")+1);
-                switch (i) {
-                    case 0:
-                        newsLabel1.setText(S.substring(3, S.indexOf(", '\\n'")-1));
-                        break;
-                    case 1: newsLabel2.setText(S.substring(3, S.indexOf(", '\\n'")-1));
-                        break;
-                    case 2: newsLabel3.setText(S.substring(3, S.indexOf(", '\\n'")-1));
-                        break;
-                    case 3: newsLabel4.setText(S.substring(3, S.indexOf(", '\\n'")-1));
-                }
-                i++;
-            }
-
-        }
-        catch(Exception e) {
-            e.printStackTrace();
-        }
-
-        *********************************************************/
+        b1.bind(bitcoinPrice);
+        e1.bind(ethPrice);
+        d1.bind(dashPrice);
 
         initPopup();
         drawer.close();
@@ -150,7 +179,26 @@ public class MainUiController extends Thread implements Initializable  {
         publicKeyLabel.setText(Main.publicKey);
         web3j = Main.web3j;
         web3j = Web3j.build(new HttpService("https://rinkeby.infura.io/Nb9v0iQy5LYKUBBYu3Hp"));
-        web3Function();
+        //web3Function();
+
+//        NewsLoader nl = new NewsLoader();
+//        nl.start();
+
+        try{
+//            Stage loadingStage = new Stage();
+//            Parent root = FXMLLoader.load(getClass().getResource("../../resources/LoadingView.fxml"));
+//            loadingStage.initStyle(StageStyle.TRANSPARENT);
+//            Scene loadingScene = new Scene(root);
+//            loadingScene.setFill(Color.TRANSPARENT);
+//            loadingStage.setScene(loadingScene);
+//            loadingStage.show();
+
+            loadNews();
+        }catch(Exception e){
+
+        }
+
+
     }
 
     public void web3Function(){
@@ -203,34 +251,39 @@ public class MainUiController extends Thread implements Initializable  {
         newsLabel4.setStyle("-fx-font-weight: bold; -fx-font-style: italic; -fx-background-color: #808080;");
     }
 
-    @FXML public void newsLabel1Clicked(MouseEvent event){
-        System.out.println(webArray[0]);
-
-        if(window == null) {
-            window = (Stage)mainAnchor.getScene().getWindow();
-        }
-        window.setOpacity(0);
-    }
-    @FXML public void newsLabel2Clicked(MouseEvent event){
-        System.out.println(webArray[1]);
-
-        if(window == null) {
-            window = (Stage)mainAnchor.getScene().getWindow();
-        }
-        window.setOpacity(0);
-    }
-    @FXML public void newsLabel3Clicked(MouseEvent event){
-        System.out.println(webArray[2]);
-
-        if(window == null) {
-            window = (Stage)mainAnchor.getScene().getWindow();
+    @FXML public void newsLabel1Clicked(MouseEvent event) {
+        try {
+            System.out.println(webArray[0]);
+           // Desktop.getDesktop().browse(new URI(""+"http://www.google.com"));
+            OpenBrowser ob = new OpenBrowser(""+webArray[0]);
+            ob.start();
+            System.out.println("sjdfkhsjkf");
+        } catch (Exception e1) {
+            e1.printStackTrace();
         }
     }
-    @FXML public void newsLabel4Clicked(MouseEvent event){
-        System.out.println(webArray[3]);
-
-        if(window == null) {
-            window = (Stage)mainAnchor.getScene().getWindow();
+    @FXML public void newsLabel2Clicked(MouseEvent event) {
+        try {
+            OpenBrowser ob = new OpenBrowser(""+webArray[1]);
+            ob.start();
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
+    }
+    @FXML public void newsLabel3Clicked(MouseEvent event) {
+        try {
+            OpenBrowser ob = new OpenBrowser(""+webArray[2]);
+            ob.start();
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
+    }
+    @FXML public void newsLabel4Clicked(MouseEvent event) {
+        try {
+            OpenBrowser ob = new OpenBrowser(""+webArray[3]);
+            ob.start();
+        } catch (Exception e1) {
+            e1.printStackTrace();
         }
     }
 
@@ -297,9 +350,60 @@ public class MainUiController extends Thread implements Initializable  {
 
     @FXML
     public void coinSetter(){
-        cs = new CoinSetter(bitcoinDollar, bitcoinRup, ethDollar, ethRup, dashDollar, dashRup);
-        cs.setDaemon(true);
-        cs.start();
+        bkgThread = new Service<Void>() {
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    @Override
+                    protected Void call() throws Exception {
+                        try{
+                            String str, bitcoin, eth, dash;
+
+//                        ProcessBuilder pb = new ProcessBuilder("python","/home/aks/Documents/Hack36/src/main/resources/CoinRate.py");
+//                        Process p = pb.start();
+
+                            Process p1 = Runtime.getRuntime().exec("python /home/aks/Documents/Hack36/src/main/resources/CoinRate.py");
+                            BufferedReader stdInput1 = new BufferedReader(new InputStreamReader(p1.getInputStream()));
+                            Double con=0.0;
+                            try {
+                                con = Double.parseDouble((str = stdInput1.readLine()));
+                            }catch(Exception e){
+                                e.printStackTrace();
+                            }
+
+                            try {
+                                bitcoin = (stdInput1.readLine()).substring(1);
+                                eth = (stdInput1.readLine()).substring(1);
+                                dash = (stdInput1.readLine()).substring(1);
+                                bitcoinPrice.setValue(bitcoin);
+                                ethPrice.setValue(eth);
+                                dashPrice.setValue(dash);
+                                exchange.setValue(con.toString());
+
+                            }catch (Exception e){
+
+                            }
+                        }catch(Exception e){
+
+                        }
+                        return null;
+                    }
+                };
+            }
+        };
+
+        bkgThread.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent event) {
+                bitcoinDollar.setText(b1.getValue());
+                bitcoinRup.setText(""+(Double.parseDouble(b1.getValue()))*Double.parseDouble(exchange.getValue()));
+                ethDollar.setText(e1.getValue());
+                ethRup.setText(""+(Double.parseDouble(e1.getValue()))*Double.parseDouble(exchange.getValue()));
+                dashDollar.setText(d1.getValue());
+                dashRup.setText(""+(Double.parseDouble(d1.getValue()))*Double.parseDouble(exchange.getValue()));
+            }
+        });
+        bkgThread.restart();
     }
 
     @FXML
@@ -319,6 +423,50 @@ public class MainUiController extends Thread implements Initializable  {
 
     public void updateBalance(){
         // TODO: code to get balance
+    }
+
+    public void loadNews(){
+        // TODO: Load news
+        try {
+//            ProcessBuilder processBuilder = new ProcessBuilder("python", "/home/surbhit/Desktop/PassBook/src/sample/CryptocurrencyNews.py");
+//            Process process = processBuilder.start();
+
+            Process process = Runtime.getRuntime().exec("python /home/aks/Documents/Hack36/src/main/resources/CryptocurrencyNews.py");
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String S;
+            int i = 0;
+            while((S = reader.readLine()) != null && i != 8)
+            {
+ //               webArray[i] = S;//.substring(S.indexOf("http"),S.indexOf("/'")+1);
+
+                if(i%2 == 0) {
+                    if(i/2 == 0) {
+                        newsLabel1.setText(S);
+
+                    }
+                    else if(i/2 == 1) {
+                        newsLabel2.setText(S);
+                    }
+                    else if(i/2 == 2) {
+                        newsLabel3.setText(S);
+                    }
+                    else if(i/2 == 3) {
+                        newsLabel4.setText(S);
+                    }
+                }
+                else {
+
+                    webArray[i/2] = S.trim();
+                }
+
+                i++;
+            }
+
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void onSettingsClicked() {
@@ -352,59 +500,61 @@ public class MainUiController extends Thread implements Initializable  {
     }
 
     public void getBalance(MouseEvent evt) {
-        bs = new BalanceSetter(etherBalanceLabel);
-        bs.setDaemon(true);
-        bs.start();
-//
-//        TimeSetter ts = new TimeSetter(timeLabel);
-//        ts.start();
+//        bs = new BalanceSetter(etherBalanceLabel);
+//        bs.setDaemon(true);
+//        bs.start();
 
 
-//        MainUiController mic = new MainUiController();
-//        mic.start();
+
+        // TODO: Start service
+
+        bkgThread = new Service<Void>() {
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    @Override
+                    protected Void call() throws Exception {
+                        try{
+                            String str;
+                            Process p1 = Runtime.getRuntime().exec("python /home/aks/Documents/Hack36/src/main/resources/Balance.py "+"0xE470A002AFBD470488FA4dc8cCF8089878b8b683");
+                            BufferedReader br = new BufferedReader(new InputStreamReader(p1.getInputStream()));
+
+                            try {
+                                str = br.readLine();
+                                str = br.readLine();
+                                //System.out.println(str);
+                                str=str.substring(0,str.lastIndexOf("E")).trim();
+                                //System.out.println(str);
+                                balanceFromBalanceSetter = str;
+
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        return null;
+                    }
+                };
+            }
+        };
+
+        bkgThread.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent event) {
+                etherBalanceLabel.setText(balanceFromBalanceSetter);
+            }
+        });
+        bkgThread.restart();
+
+
+
     }
 
-    public void onMinimize(MouseEvent evt){
-        ((Stage)((Label)evt.getSource()).getScene().getWindow()).setIconified(true);
+    public void onMinimize(MouseEvent evt) {
+        ((Stage) ((Label) evt.getSource()).getScene().getWindow()).setIconified(true);
     }
 
-    //        }
-    //            e.printStackTrace();
-    //        } catch (IOException e) {
-    //            }
-    //
-    //            }catch (Exception e){
-    //
-    //                dashRup.setText(""+Double.parseDouble(dash)*con);
-    //                ethRup.setText(""+Double.parseDouble(eth)*con);
-    //                bitcoinRup.setText(""+Double.parseDouble(bitcoin)*con);
-    //
-    //                dashDollar.setText(dash);
-    //                ethDollar.setText(eth);
-    //                bitcoinDollar.setText(bitcoin);
-    //                dash = (stdInput1.readLine()).substring(1);
-    //                eth = (stdInput1.readLine()).substring(1);
-    //                bitcoin = (stdInput1.readLine()).substring(1);
-    //            try {
-    //
-    //            }
-    //                e.printStackTrace();
-    //            }catch(Exception e){
-    //                con = Double.parseDouble((str = stdInput1.readLine()));
-    //            try {
-    //            Double con=0.0;
-    //            BufferedReader stdInput1 = new BufferedReader(new InputStreamReader(p.getInputStream()));
-    //            //Process p1 = Runtime.getRuntime().exec("python /home/aks/Documents/Hack36/src/main/resources/CoinRate.py");
-    //
-    //            Process p = pb.start();
-    //            ProcessBuilder pb = new ProcessBuilder("python","/home/aks/Documents/Hack36/src/main/resources/CoinRate.py");
-    //
-    //            String str, bitcoin, eth, dash;
-    //        try {
-    //
-//    public void run(){
-
-//    }
 
 
 }
@@ -446,69 +596,6 @@ class TimeSetter extends Thread{
 }
 
 
-// Class for setting the coin rates
-class CoinSetter extends Thread{
-    Label bitcoinDollar, bitcoinRup, ethDollar, ethRup, dashDollar, dashRup;
-    CoinSetter(Label _bitcoinDollar, Label _bitcoinRup, Label _ethDollar, Label _ethRup, Label _DashDollar, Label _dashRup ){
-        this.bitcoinDollar = _bitcoinDollar;
-        this.bitcoinRup = _bitcoinRup;
-        this.ethDollar = _ethDollar;
-        this.ethRup = _ethRup;
-        this.dashDollar = _DashDollar;
-        this.dashRup = _dashRup;
-        System.out.println("Constructer of Coin Setter executed");
-    }
-
-    public void run(){
-        while(true) {
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-
-                    try {
-                        String str, bitcoin, eth, dash;
-
-//                        ProcessBuilder pb = new ProcessBuilder("python","/home/aks/Documents/Hack36/src/main/resources/CoinRate.py");
-//                        Process p = pb.start();
-
-                        Process p1 = Runtime.getRuntime().exec("python /home/aks/Documents/Hack36/src/main/resources/CoinRate.py");
-                        BufferedReader stdInput1 = new BufferedReader(new InputStreamReader(p1.getInputStream()));
-                        Double con=0.0;
-                        try {
-                            con = Double.parseDouble((str = stdInput1.readLine()));
-                        }catch(Exception e){
-                            e.printStackTrace();
-                        }
-
-                        try {
-                            bitcoin = (stdInput1.readLine()).substring(1);
-                            eth = (stdInput1.readLine()).substring(1);
-                            dash = (stdInput1.readLine()).substring(1);
-                            bitcoinDollar.setText(bitcoin);
-                            ethDollar.setText(eth);
-                            dashDollar.setText(dash);
-
-                            bitcoinRup.setText(""+Double.parseDouble(bitcoin)*con);
-                            ethRup.setText(""+Double.parseDouble(eth)*con);
-                            dashRup.setText(""+Double.parseDouble(dash)*con);
-
-                        }catch (Exception e){
-
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-            try {
-                sleep(600000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-}
-
 class BalanceSetter extends Thread{
     Label balanceLabel;
     public BalanceSetter(Label _balanceLabel){
@@ -542,6 +629,40 @@ class BalanceSetter extends Thread{
         });
     }
 }
+
+// For loading news
+class NewsLoader extends Thread{
+    public void run(){
+        MainUiController mui = new MainUiController();
+        mui.loadNews();
+    }
+}
+
+
+class OpenBrowser extends Thread{
+
+    String path;
+    OpenBrowser(String path){
+        this.path = path;
+    }
+
+    public void browser() {
+        try {
+            Desktop.getDesktop().browse(new URI(""+path));
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void run(){
+        browser();
+    }
+}
+
+
+
 
 
 /*

@@ -24,7 +24,8 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         window = primaryStage;
-        Parent root = FXMLLoader.load(getClass().getResource("../../resources/LoginView.fxml"));
+        //Parent root = FXMLLoader.load(getClass().getResource("../../resources/LoginView.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../../resources/MainUI1.fxml"));
         window.setTitle("Ether Samaj");
         window.initStyle(StageStyle.TRANSPARENT);
 

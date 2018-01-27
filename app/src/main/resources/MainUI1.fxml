@@ -10,9 +10,9 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.shape.Line?>
 <AnchorPane fx:id="mainAnchor" onMouseClicked="#oneTimeMouseClicked" onMouseDragged="#mainAnchorMouseDragged" onMousePressed="#mainAnchorMousePressed" prefHeight="720.0" prefWidth="1284.0" style="-fx-background-radius: 3;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="framework.MainUiController">
    <children>
       <AnchorPane layoutX="215.0" layoutY="165.0" style="-fx-background-color: #ffffff;">
@@ -234,7 +234,7 @@
                   <Image url="@Images/icons8-ratings-96.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="46.0" fitWidth="46.0" layoutX="658.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="newsIcon" fitHeight="46.0" fitWidth="46.0" layoutX="658.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Images/icons8-news-96.png" />
                </image>
@@ -262,7 +262,7 @@
       </AnchorPane>
       <AnchorPane layoutX="-3.0" layoutY="165.0" opacity="0.79" prefHeight="563.0" prefWidth="219.0" style="-fx-background-color: #1d2026;">
          <children>
-            <JFXButton fx:id="settingsButton" layoutX="-2.0" layoutY="311.0" onAction="#onSettingsClicked" prefHeight="46.0" prefWidth="219.0" text="Settings" textFill="WHITE">
+            <JFXButton fx:id="settingsButton" layoutX="-1.0" layoutY="346.0" onAction="#onSettingsClicked" prefHeight="46.0" prefWidth="219.0" text="Settings" textFill="WHITE">
                <font>
                   <Font size="17.0" />
                </font>
@@ -270,7 +270,7 @@
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </JFXButton>
-            <JFXButton fx:id="aboutUsButton" layoutY="357.0" onAction="#onAboutusClicked" prefHeight="46.0" prefWidth="219.0" text="About Us" textFill="WHITE">
+            <JFXButton fx:id="aboutUsButton" layoutX="1.0" layoutY="392.0" onAction="#onAboutusClicked" prefHeight="46.0" prefWidth="219.0" text="About Us" textFill="WHITE">
                <font>
                   <Font size="17.0" />
                </font>
@@ -278,12 +278,12 @@
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </JFXButton>
-            <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="30.0" layoutY="322.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="34.0" layoutY="357.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Images/icons8-settings-32.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="30.0" layoutY="368.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="34.0" layoutY="403.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Images/icons8-info-32.png" />
                </image>
@@ -313,6 +313,19 @@
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </JFXButton>
+            <JFXButton fx:id="launchButton" alignment="CENTER" layoutX="-1.0" layoutY="301.0" onAction="#onSettingsClicked" prefHeight="46.0" prefWidth="219.0" text="New Task" textFill="WHITE">
+               <font>
+                  <Font size="17.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
+            </JFXButton>
+            <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="34.0" layoutY="312.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Images/icons8-launch-96.png" />
+               </image>
+            </ImageView>
          </children>
          <effect>
             <DropShadow />
@@ -327,7 +340,7 @@
             <DropShadow />
          </effect>
       </AnchorPane>
-      <AnchorPane id="actionBarAnchor" fx:id="actionBarAnchor" onMouseClicked="#getBalance" opacity="0.82" prefHeight="165.0" prefWidth="1323.0" style="-fx-background-color: #1d2026;">
+      <AnchorPane id="actionBarAnchor" fx:id="actionBarAnchor" opacity="0.82" prefHeight="165.0" prefWidth="1323.0" style="-fx-background-color: #1d2026;">
          <children>
             <Label fx:id="nameLabel" layoutX="218.0" layoutY="32.0" prefHeight="58.0" prefWidth="640.0" text="Abhishek Kumar Singh" textFill="#ddd9d9">
                <font>
@@ -344,7 +357,7 @@
                   <Image url="@Images/icons8-ethereum-96.png" />
                </image>
             </ImageView>
-            <Label fx:id="balancelbl" layoutX="1109.0" layoutY="32.0" prefHeight="46.0" prefWidth="139.0" text="Balance:" textFill="#f2eaea">
+            <Label fx:id="balancelbl" layoutX="1109.0" layoutY="32.0" onMouseClicked="#getBalance" prefHeight="46.0" prefWidth="139.0" text="Balance:" textFill="#f2eaea">
                <font>
                   <Font size="30.0" />
                </font>
