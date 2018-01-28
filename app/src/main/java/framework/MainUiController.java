@@ -134,7 +134,7 @@ public class MainUiController extends Thread implements Initializable  {
     @FXML Label newsLabel1, newsLabel2, newsLabel3, newsLabel4;
 
     String[] webArray = new String[4];
-    int a[];
+    int a[], b[];
 
     static  List<Pair<Integer, Integer> > trendingList;
 
@@ -277,24 +277,46 @@ public class MainUiController extends Thread implements Initializable  {
                                 a[i] = (Main.contractCw.getAllProjectId(BigInteger.valueOf(i)).send()).intValue();
                                 System.out.println(i+"->"+a[i]);
                             }
+//                            for(int i=0;i<totalProjects.intValue();i++){
+//                                Tuple3<BigInteger, BigInteger, BigInteger> result = Main.contractCw.getProjectValues(BigInteger.valueOf(a[i])).send();
+//                                //trending=new Tuple<>((result.getValue1()).intValue(), a[i]);
+//                               trendingList = new ArrayList<>();
+//                                Pair<Integer, Integer> pair = new Pair<>((result.getValue1()).intValue(), a[i]);
+//                                trendingList.add(pair);
+//                            }
+//                            //Arrays.sort();
+//
+//
+//
+//                            Comparator<Pair<Integer, Integer>> comparator = new Comparator<Pair<Integer, Integer>>(){
+//                                public int compare(Pair<Integer, Integer> pairA,
+//                                                   Pair<Integer, Integer> pairB)
+//                                {
+//                                    return pairA.getKey().compareTo(pairB.getKey());
+//                                }
+//                            };
+
                             for(int i=0;i<totalProjects.intValue();i++){
                                 Tuple3<BigInteger, BigInteger, BigInteger> result = Main.contractCw.getProjectValues(BigInteger.valueOf(a[i])).send();
-                                //trending=new Tuple<>((result.getValue1()).intValue(), a[i]);
-                               trendingList = new ArrayList<>();
-                                Pair<Integer, Integer> pair = new Pair<>((result.getValue1()).intValue(), a[i]);
-                                trendingList.add(pair);
+                                b[i]=result.getValue1().intValue();
                             }
-                            //Arrays.sort();
 
-
-
-                            Comparator<Pair<Integer, Integer>> comparator = new Comparator<Pair<Integer, Integer>>(){
-                                public int compare(Pair<Integer, Integer> pairA,
-                                                   Pair<Integer, Integer> pairB)
+                            for(int i=0;i<totalProjects.intValue();i++)
+                            {
+                                for(int j=0;j<totalProjects.intValue()-i-1;i++)
                                 {
-                                    return pairA.getKey().compareTo(pairB.getKey());
+                                    if(b[j]<b[j+1])
+                                    {
+                                        int temp = b[j];
+                                        b[j]=b[j+1];
+                                        b[j+1]=temp;
+
+                                        int temp2 = a[j];
+                                        a[j]=a[j+1];
+                                        a[j+1]=temp2;
+                                    }
                                 }
-                            };
+                            }
 
 
 
@@ -312,14 +334,17 @@ public class MainUiController extends Thread implements Initializable  {
         cwThread.setOnSucceeded(e->{
 //            SlidePaneController obj=new SlidePaneController();
 //            obj.updateProjectsView();
-            Comparator<Pair<Integer, Integer>> comparator = new Comparator<Pair<Integer, Integer>>(){
-                public int compare(Pair<Integer, Integer> pairA,
-                                   Pair<Integer, Integer> pairB)
-                {
-                    return pairA.getKey().compareTo(pairB.getKey());
-                }
-            };
+//            Comparator<Pair<Integer, Integer>> comparator = new Comparator<Pair<Integer, Integer>>(){
+//                public int compare(Pair<Integer, Integer> pairA,
+//                                   Pair<Integer, Integer> pairB)
+//                {
+//                    return pairA.getKey().compareTo(pairB.getKey());
+//                }
+//            };
             //Collections.sort(trendingList, comparator);
+            trendlbl1.setText("Project #"+a[0]);
+
+
             SlidePaneController.updateProjectsView();
         });
 

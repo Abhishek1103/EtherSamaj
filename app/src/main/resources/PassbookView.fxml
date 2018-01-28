@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.web.WebView?>
 
-<AnchorPane maxWidth="1284.0" minWidth="1277.0" prefHeight="720.0" prefWidth="1277.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="framework.PassbookController">
+<AnchorPane fx:id="mainAnchor" maxWidth="1284.0" minWidth="1277.0" prefHeight="720.0" prefWidth="1277.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="framework.PassbookController">
    <children>
       <AnchorPane layoutX="-3.0" layoutY="150.0" prefHeight="49.0" prefWidth="1284.0" style="-fx-background-color: grey;">
          <children>
@@ -62,6 +62,8 @@
                   <Font size="14.0" />
                </font>
             </Label>
+            <Label fx:id="ex" layoutX="1254.0" layoutY="14.0" onMouseClicked="#onExit" text="X" textFill="#e1dcdc" />
+            <Label fx:id="min" layoutX="1236.0" layoutY="14.0" onMouseClicked="#onMin" text="_" textFill="WHITE" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="-3.0" layoutY="199.0" maxWidth="1284.0" minWidth="1284.0" opacity="0.82" prefHeight="521.0" prefWidth="1284.0" style="-fx-background-color: #1D2026;">

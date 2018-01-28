@@ -23,7 +23,7 @@ public class FundingGraphController implements Initializable {
         series = new XYChart.Series<>();
         series.setName("Allocated Funds vs Time");
 
-        loadGraph();
+        //loadGraph();
         lineChart.getData().add(series);
     }
 

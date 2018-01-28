@@ -1,6 +1,8 @@
 package framework;
 
 import com.jfoenix.controls.JFXButton;
+import javafx.animation.FadeTransition;
+import javafx.animation.ScaleTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -10,9 +12,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.tx.Transfer;
 import org.web3j.utils.Convert;
@@ -27,6 +31,8 @@ public class PassbookController implements Initializable{
 
     @FXML public WebView webpage;
     @FXML public Button refreshTran;
+    @FXML
+    AnchorPane mainAnchor;
     public WebEngine engine;
 
     public final String webLink = "https://rinkeby.etherscan.io/address/";
@@ -65,8 +71,17 @@ public class PassbookController implements Initializable{
                 refreshTran.setOpacity(0.5);
             }
         });
+        fadeInTransition();
     }
 
+    private void fadeInTransition()
+    {
+
+        FadeTransition fdIn=new FadeTransition(Duration.seconds(1),mainAnchor);
+        fdIn.setFromValue(0.0);
+        fdIn.setToValue(1.0);
+        fdIn.play();
+    }
     public void payEther(ActionEvent evt){
         String publicKey="";int f1=0, f2=0;
         TextInputDialog dialog = new TextInputDialog();
@@ -137,6 +152,24 @@ public class PassbookController implements Initializable{
             a.showAndWait();
         }
 
+    }
+
+    public void onExit(MouseEvent evt){
+        ScaleTransition scaleTransition=new ScaleTransition(Duration.seconds(1),mainAnchor);
+        scaleTransition.setToX(0.2);
+        scaleTransition.setToY(0.2);
+        scaleTransition.setAutoReverse(true);
+        scaleTransition.setCycleCount(1);
+
+        scaleTransition.play();
+        scaleTransition.setOnFinished(e -> {
+            ((Stage)((Label)evt.getSource()).getScene().getWindow()).close();
+        });
+    }
+
+
+    public void onMin(MouseEvent evt){
+        ((Stage)((Label)evt.getSource()).getScene().getWindow()).setIconified(true);
     }
 
 }
