@@ -381,7 +381,7 @@
                </cursor>
             </Label>
             <Label fx:id="etherBalanceLabel" layoutX="1109.0" layoutY="83.0" prefHeight="16.0" prefWidth="181.0" text="14.988453788000000001" textFill="#b5aaaa" />
-            <JFXButton layoutX="1235.0" layoutY="32.0" prefHeight="46.0" prefWidth="46.0" ripplerFill="#fcf7f7" text="    ">
+            <JFXButton fx:id="passBookButton" layoutX="1235.0" layoutY="32.0" onAction="#onPassBookClicked" prefHeight="46.0" prefWidth="46.0" ripplerFill="#fcf7f7" text="    ">
                <graphic>
                   <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                      <image>

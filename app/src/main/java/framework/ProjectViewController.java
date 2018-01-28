@@ -6,7 +6,9 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -93,7 +95,7 @@ public class ProjectViewController implements Initializable {
 
         //System.out.println(""+projectId);
 
-        //executeProjectDetailsThread();
+        executeProjectDetailsThread();
     }
 
     void executeProjectDetailsThread(){
@@ -120,7 +122,8 @@ public class ProjectViewController implements Initializable {
                            isCompleted=res.getValue2();
                            isOpen = res.getValue3();
                            Tuple2<String, String> res1 = Main.contractCw.getProjectInfo(BigInteger.valueOf(projectId)).send();
-                           projectDescriptionProp.setValue(res1.getValue1());
+                           //projectDescriptionProp.setValue(res1.getValue1());
+                           updateMessage(res1.getValue1());
                            Tuple3<BigInteger, BigInteger, BigInteger> res2 = Main.contractCw.getProjectValues(BigInteger.valueOf(projectId)).send();
                            allocatedFunds = res2.getValue1();
                            targetAmount = res2.getValue2();
@@ -145,6 +148,12 @@ public class ProjectViewController implements Initializable {
             }
         };
 
+        projectDetailsThread.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent event) {
+                projectDescriptionProp.bind(projectDetailsThread.messageProperty());
+            }
+        });
         projectDetailsThread.restart();
 
     }
@@ -203,7 +212,9 @@ public class ProjectViewController implements Initializable {
                                                         //TODO: add user address
                 try {
                     int amount = Integer.parseInt(result.get());
-                    TransactionReceipt receipt = Main.contractCw.addFunds("0xe470a002afbd470488fa4dc8ccf8089878b8b683",BigInteger.valueOf(projectId), BigInteger.valueOf(amount)).send();
+//                    TransactionReceipt receipt = Main.contractCw.addFunds("0xe470a002afbd470488fa4dc8ccf8089878b8b683",BigInteger.valueOf(projectId), BigInteger.valueOf(amount)).send();
+                    FundProject fd = new FundProject(projectId,amount);
+                    fd.start();
                 }catch (Exception ex) {
                     Alert a = new Alert(Alert.AlertType.ERROR);
                     a.setTitle("Error");
@@ -250,9 +261,10 @@ public class ProjectViewController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        ProjectViewController obj = loader.getController();
-        obj.setProjectId(projectId);
+        UndertakeProjectConfirmController obj = loader.getController();
+        obj.setId(projectId);
 
+        Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.initStyle(StageStyle.TRANSPARENT);
         Scene scene = new Scene(root);
@@ -271,7 +283,7 @@ public class ProjectViewController implements Initializable {
     }
 
     public void onAllotedFundsClicked(){
-        LoginController.showAlert("Allocated Funds","Project : #"+projectId,"Funds Allocated: "+allocatedFunds.toString());
+        //LoginController.showAlert("Allocated Funds","Project : #"+projectId,"Funds Allocated: "+allocatedFunds.toString());
         Alert a = new Alert(Alert.AlertType.INFORMATION);
         a.setTitle("Project Details");
         a.setContentText("Allocated Funds: "+allocatedFunds+"\nTarget Amount: "+targetAmount);
@@ -288,15 +300,35 @@ public class ProjectViewController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        window.initModality(Modality.APPLICATION_MODAL);
-        window.initStyle(StageStyle.TRANSPARENT);
+        Stage win= new Stage();
+        win.initModality(Modality.APPLICATION_MODAL);
+        win.initStyle(StageStyle.TRANSPARENT);
         Scene scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT);
-        window.setScene(scene);
-        window.show();
+        win.setScene(scene);
+        win.show();
     }
 }
+
+
+
+
+class FundProject extends Thread{
+    int projectID, amount;
+    FundProject(int _projectId, int _amount){
+        this.projectID = _projectId;
+        this.amount = _amount;
+    }
+
+    public void run(){
+        try{
+            TransactionReceipt receipt = Main.contractCw.addFunds("0xe470a002afbd470488fa4dc8ccf8089878b8b683",BigInteger.valueOf(projectID), BigInteger.valueOf(amount)).send();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+}
+
 
 
 //class ProjectDetails extends Thread{

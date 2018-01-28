@@ -1,14 +1,18 @@
 package framework;
 
+import com.jfoenix.controls.JFXButton;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import javafx.stage.Stage;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.tx.Transfer;
 import org.web3j.utils.Convert;
@@ -30,7 +34,7 @@ public class PassbookController implements Initializable{
 
 
     @FXML
-    Label payButton;
+    JFXButton payBtn;
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
@@ -63,7 +67,7 @@ public class PassbookController implements Initializable{
         });
     }
 
-    public void payEther(){
+    public void payEther(ActionEvent evt){
         String publicKey="";int f1=0, f2=0;
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("Enter the Details");
@@ -113,12 +117,15 @@ public class PassbookController implements Initializable{
         }
         if(f1==1 && f2==1){
             try {
-                TransactionReceipt receipt = Transfer.sendFunds(Main.web3j,Main.credentials,publicKey, BigDecimal.valueOf(amount), Convert.Unit.WEI).send();
+                //TransactionReceipt receipt = Transfer.sendFunds(Main.web3j,Main.credentials,publicKey, BigDecimal.valueOf(amount), Convert.Unit.WEI).send();
+                FundTransfer ft = new FundTransfer(publicKey, amount);
+                ft.start();
                 Alert a = new Alert(Alert.AlertType.CONFIRMATION);
                 a.setTitle("Transaction Status");
                 a.setHeaderText("Transaction Successful");
-                a.setContentText("Receipt: https://rinkeby.etherscan.io/tx/" + receipt.getTransactionHash());
+                a.setContentText("Funds Sent..!!");
                 a.showAndWait();
+                ((Stage)((JFXButton)evt.getSource()).getScene().getWindow()).close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -133,3 +140,20 @@ public class PassbookController implements Initializable{
     }
 
 }
+
+class FundTransfer extends Thread{
+    String publicKey; int amount;
+    FundTransfer(String _publicKey, int _amount){
+        this.publicKey = _publicKey;
+        this.amount = _amount;
+    }
+
+    public void run(){
+        try{
+            TransactionReceipt receipt = Transfer.sendFunds(Main.web3j,Main.credentials,publicKey, BigDecimal.valueOf(amount), Convert.Unit.WEI).send();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+}
+

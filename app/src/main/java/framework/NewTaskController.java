@@ -78,7 +78,7 @@ public class NewTaskController implements Initializable {
             if(days.isEmpty() || projectDescription.isEmpty())
                 throw new Exception("Empty String");
 
-            option = (group.getSelectedToggle().getUserData().toString());
+            //option = (group.getSelectedToggle().getUserData().toString());
 
 
             startLoading();
@@ -106,7 +106,7 @@ public class NewTaskController implements Initializable {
                         try{
                             Main.contractCw=CommunityWork.load(
                                     Main.contractAddress, Main.web3j, Main.credentials, ManagedTransaction.GAS_PRICE, Contract.GAS_LIMIT);
-                            TransactionReceipt receipt = Main.contractCw.projectDeployer("/*TODO: My Address*/", BigInteger.valueOf(allocatedFund),projectDescription,BigInteger.valueOf(target),BigInteger.valueOf(duration),BigInteger.valueOf(60),BigInteger.valueOf(allocatedFund)).send();
+                            TransactionReceipt receipt = Main.contractCw.projectDeployer(Main.publicKey, BigInteger.valueOf(allocatedFund),projectDescription,BigInteger.valueOf(target),BigInteger.valueOf(duration),BigInteger.valueOf(60),BigInteger.valueOf(allocatedFund)).send();
 
                         }
                         catch (Exception e)

@@ -202,7 +202,7 @@ public class MainUiController extends Thread implements Initializable  {
 
         try{
             System.out.println("going to load news");
-            //loadNews();
+            loadNews();
             System.out.println("News Done");
             web3Function();
             System.out.println("news and web3 finished");
@@ -272,7 +272,7 @@ public class MainUiController extends Thread implements Initializable  {
                                     Main.contractAddress, Main.web3j, Main.credentials, ManagedTransaction.GAS_PRICE, Contract.GAS_LIMIT);
                             BigInteger totalProjects = Main.contractCw.getProjectIdLength().send();
                             System.out.println("Total leng"+ totalProjects);
-                            //a =new int[totalProjects.intValue()];
+                            a =new int[totalProjects.intValue()];
                             for (int i = 0; i < totalProjects.intValue(); i++) {
                                 a[i] = (Main.contractCw.getAllProjectId(BigInteger.valueOf(i)).send()).intValue();
                                 System.out.println(i+"->"+a[i]);
@@ -280,7 +280,7 @@ public class MainUiController extends Thread implements Initializable  {
                             for(int i=0;i<totalProjects.intValue();i++){
                                 Tuple3<BigInteger, BigInteger, BigInteger> result = Main.contractCw.getProjectValues(BigInteger.valueOf(a[i])).send();
                                 //trending=new Tuple<>((result.getValue1()).intValue(), a[i]);
-
+                               trendingList = new ArrayList<>();
                                 Pair<Integer, Integer> pair = new Pair<>((result.getValue1()).intValue(), a[i]);
                                 trendingList.add(pair);
                             }
@@ -561,10 +561,10 @@ public class MainUiController extends Thread implements Initializable  {
         // TODO: Load news
         System.out.println("In news Method");
         try {
-            //ProcessBuilder processBuilder = new ProcessBuilder("python", "/home/aks/Documents/Hack36/src/main/resources/CryptocurrencyNews.py");
-            //Process process = processBuilder.start();
+            ProcessBuilder processBuilder = new ProcessBuilder("python", "/home/aks/Documents/Hack36/src/main/resources/CryptocurrencyNews.py");
+            Process process = processBuilder.start();
 
-            Process process = Runtime.getRuntime().exec("python /home/aks/Documents/Hack36/src/main/resources/CryptocurrencyNews.py");
+            //Process process = Runtime.getRuntime().exec("python /home/aks/Documents/Hack36/src/main/resources/CryptocurrencyNews.py");
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String S;
@@ -598,6 +598,21 @@ public class MainUiController extends Thread implements Initializable  {
 
         }
         catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void onPassBookClicked(){
+        Stage settingsWindow = new Stage();
+        settingsWindow.initModality(Modality.APPLICATION_MODAL);
+        settingsWindow.initStyle(StageStyle.TRANSPARENT);
+        try {
+            Parent settingsRoot = FXMLLoader.load(getClass().getResource("../../resources/PassbookView.fxml"));
+            Scene sc = new Scene(settingsRoot);
+            sc.setFill(Color.TRANSPARENT);
+            settingsWindow.setScene(sc);
+            settingsWindow.showAndWait();
+        }catch (Exception e){
             e.printStackTrace();
         }
     }
