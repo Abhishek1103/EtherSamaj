@@ -49,7 +49,7 @@ public class NewTaskController implements Initializable {
 
     ToggleGroup group;
     Service<Void> cwThread;
-
+    int c = 62;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         FadeTransition fadeIn=new FadeTransition();
@@ -106,7 +106,7 @@ public class NewTaskController implements Initializable {
                         try{
                             Main.contractCw=CommunityWork.load(
                                     Main.contractAddress, Main.web3j, Main.credentials, ManagedTransaction.GAS_PRICE, Contract.GAS_LIMIT);
-                            TransactionReceipt receipt = Main.contractCw.projectDeployer(Main.publicKey, BigInteger.valueOf(allocatedFund),projectDescription,BigInteger.valueOf(target),BigInteger.valueOf(duration),BigInteger.valueOf(60),BigInteger.valueOf(allocatedFund)).send();
+                            TransactionReceipt receipt = Main.contractCw.projectDeployer(Main.publicKey, BigInteger.valueOf(allocatedFund),projectDescription,BigInteger.valueOf(target),BigInteger.valueOf(duration),BigInteger.valueOf(c++),BigInteger.valueOf(allocatedFund)).send();
 
                         }
                         catch (Exception e)

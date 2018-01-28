@@ -343,6 +343,7 @@ public class MainUiController extends Thread implements Initializable  {
 //            };
             //Collections.sort(trendingList, comparator);
             trendlbl1.setText("Project #"+a[0]);
+            trendlbl2.setText("Project #"+a[2]);
 
 
             SlidePaneController.updateProjectsView();
@@ -548,6 +549,7 @@ public class MainUiController extends Thread implements Initializable  {
                 };
             }
         };
+
 
         coinThread.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
             @Override

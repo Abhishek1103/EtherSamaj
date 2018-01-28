@@ -55,7 +55,7 @@ public class CommunityWork extends Contract {
     }
 
     public RemoteCall<BigInteger> getProjectIdLength() {
-        Function function = new Function("getProjectIdLength", 
+        Function function = new Function("getProjectIdLength",
                 Arrays.<Type>asList(), 
                 Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}));
         return executeRemoteCallSingleValueReturn(function, BigInteger.class);

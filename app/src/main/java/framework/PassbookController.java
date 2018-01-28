@@ -84,7 +84,7 @@ public class PassbookController implements Initializable{
     }
     public void payEther(ActionEvent evt){
         String publicKey="";int f1=0, f2=0;
-        TextInputDialog dialog = new TextInputDialog();
+        TextInputDialog dialog = new TextInputDialog("");
         dialog.setTitle("Enter the Details");
         dialog.setHeaderText("Enter Account Address");
         dialog.setContentText("Enter public key of the Account");
@@ -108,17 +108,17 @@ public class PassbookController implements Initializable{
         }
 
 
-        TextInputDialog dialog1 = new TextInputDialog();
-        dialog.setTitle("Enter the Details");
-        dialog.setHeaderText("Enter Account Address");
-        dialog.setContentText("Enter public key of the Account");
+        TextInputDialog dialog1 = new TextInputDialog("");
+        dialog1.setTitle("Enter the Details of Amount");
+        dialog1.setHeaderText("Enter Amount");
+        dialog1.setContentText("Enter Amount in Wei");
         int amount=0;
-        Optional<String> result1 = dialog.showAndWait();
-        if(result.isPresent())
+        Optional<String> result1 = dialog1.showAndWait();
+        if(result1.isPresent())
         {
             //TODO: add user address
             try {
-                amount = Integer.parseInt(result.get());
+                amount = Integer.parseInt(result1.get());
                 f2=1;
             }catch (Exception ex) {
                 Alert a = new Alert(Alert.AlertType.ERROR);
