@@ -6,7 +6,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="483.0" prefWidth="629.0" styleClass="pane" stylesheets="@FundingGraph.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="framework.FundingGraphController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#loadGraph" prefHeight="483.0" prefWidth="629.0" styleClass="pane" stylesheets="@FundingGraph.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="framework.FundingGraphController">
    <children>
       <LineChart fx:id="lineChart" layoutX="43.0" layoutY="42.0" opacity="0.65" prefHeight="400.0" prefWidth="556.0" stylesheets="@FundingGraph.css" title="Funding Statistics" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
         <xAxis>

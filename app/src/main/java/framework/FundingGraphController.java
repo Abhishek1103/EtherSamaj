@@ -17,7 +17,7 @@ public class FundingGraphController implements Initializable {
     @FXML
     LineChart<Integer, Integer> lineChart;
     XYChart.Series<Integer, Integer> series;
-
+    int count=0;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         series = new XYChart.Series<>();
@@ -32,15 +32,18 @@ public class FundingGraphController implements Initializable {
     }
 
     public void loadGraph(){
-        try {
-            Pair<Integer, Integer> p;
-            int length = MainUiController.trendingList.size();
-            for (int i=0;i<length;i++) {
-                p = MainUiController.trendingList.get(i);
-                series.getData().add(new XYChart.Data<>(p.getKey(),p.getValue()));
+        if(count==0) {
+            count++;
+            try {
+                Pair<Integer, Integer> p;
+                int length = ProjectViewController.x.length;
+                for (int i = 0; i < length; i++) {
+
+                    series.getData().add(new XYChart.Data<>(ProjectViewController.x[i], ProjectViewController.y[i]));
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        }catch (Exception e){
-            e.printStackTrace();
         }
     }
 }

@@ -75,8 +75,8 @@ public class ProjectViewController implements Initializable {
     static BigInteger allocatedFunds, targetAmount, fundingDuration;
     static  boolean isCompleted, isAccepted, isOpen;
     static BigInteger numPoints;
-    int[] x;
-    int[] y;
+    static int[] x;
+    static int[] y;
     @FXML
     Label projectDescriptionLabel;
 
@@ -292,21 +292,33 @@ public class ProjectViewController implements Initializable {
     }
 
     public void onProjectStatisticsClicked(){
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../../resources/FundingGraph.fxml"));
-        Parent root = null;
+
         try {
-            root = loader.load();
+            Stage window = new Stage();
+            Parent root = FXMLLoader.load(getClass().getResource("../../resources/FundingGraph.fxml"));
+            Scene scene = new Scene(root);
+            scene.setFill(Color.TRANSPARENT);
+            window.setScene(scene);
+            window.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Stage win= new Stage();
-        win.initModality(Modality.APPLICATION_MODAL);
-        win.initStyle(StageStyle.TRANSPARENT);
-        Scene scene = new Scene(root);
-        scene.setFill(Color.TRANSPARENT);
-        win.setScene(scene);
-        win.show();
+
+//        FXMLLoader loader = new FXMLLoader();
+//        loader.setLocation(getClass().getResource("../../resources/FundingGraph.fxml"));
+//        Parent root = null;
+//        try {
+//            root = loader.load();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        Stage win= new Stage();
+//        win.initModality(Modality.APPLICATION_MODAL);
+//        win.initStyle(StageStyle.TRANSPARENT);
+//        Scene scene = new Scene(root);
+//        scene.setFill(Color.TRANSPARENT);
+//        win.setScene(scene);
+//        win.show();
     }
 }
 
