@@ -29,11 +29,13 @@ public class Main extends Application {
     protected static CommunityWork contractCw;
     protected static Web3ClientVersion web3ClientVersion;
 
+    protected static String contractAddress = "0x9420ed8942b4e769641cb7dc3174e4e98965f666";
+
     @Override
     public void start(Stage primaryStage) throws Exception{
         window = primaryStage;
         //Parent root = FXMLLoader.load(getClass().getResource("../../resources/LoginView.fxml"));
-        Parent root = FXMLLoader.load(getClass().getResource("../../resources/MainUI1.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../../resources/LoginView.fxml"));
         window.setTitle("Ether Samaj");
         window.initStyle(StageStyle.TRANSPARENT);
 

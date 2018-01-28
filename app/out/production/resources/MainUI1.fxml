@@ -45,7 +45,7 @@
                         <Glow />
                      </effect>
                   </ImageView>
-                  <Label fx:id="bitcoinDollar" layoutX="43.0" layoutY="48.0" prefHeight="25.0" prefWidth="96.0" text="11123.50" textFill="#806a6a">
+                  <Label fx:id="bitcoinDollar" ellipsisString=" " layoutX="43.0" layoutY="48.0" prefHeight="25.0" prefWidth="96.0" text="11123.50" textFill="#806a6a">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -101,7 +101,7 @@
                         <Glow />
                      </effect>
                   </ImageView>
-                  <Label fx:id="ethDollar" layoutX="44.0" layoutY="48.0" prefHeight="25.0" prefWidth="107.0" style="-fx-background-radius: 4;" text="1058.43" textFill="#b9afaf">
+                  <Label fx:id="ethDollar" ellipsisString=" " layoutX="44.0" layoutY="48.0" prefHeight="25.0" prefWidth="107.0" style="-fx-background-radius: 4;" text="1058.43" textFill="#b9afaf">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -109,7 +109,7 @@
                         <Glow />
                      </effect>
                   </Label>
-                  <Label fx:id="ethRup" layoutX="44.0" layoutY="80.0" prefHeight="25.0" prefWidth="107.0" text="67162.68" textFill="#b9afaf">
+                  <Label fx:id="ethRup" ellipsisString=" " layoutX="44.0" layoutY="80.0" prefHeight="25.0" prefWidth="107.0" text="67162.68" textFill="#b9afaf">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -156,7 +156,7 @@
                         <Glow />
                      </effect>
                   </ImageView>
-                  <Label fx:id="dashDollar" layoutX="45.0" layoutY="52.0" prefHeight="25.0" prefWidth="107.0" text="788.95" textFill="#fcfcfc">
+                  <Label fx:id="dashDollar" ellipsisString=" " layoutX="45.0" layoutY="52.0" prefHeight="25.0" prefWidth="107.0" text="788.95" textFill="#fcfcfc">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -164,7 +164,7 @@
                         <Glow />
                      </effect>
                   </Label>
-                  <Label fx:id="dashRup" layoutX="45.0" layoutY="80.0" prefHeight="25.0" prefWidth="107.0" text="50062.82" textFill="#fcfcfc">
+                  <Label fx:id="dashRup" ellipsisString=" " layoutX="45.0" layoutY="80.0" prefHeight="25.0" prefWidth="107.0" text="50062.82" textFill="#fcfcfc">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -190,19 +190,31 @@
                   <Label fx:id="newsLabel1" alignment="CENTER" onMouseClicked="#newsLabel1Clicked" onMouseEntered="#newsLabel1Entered" onMouseExited="#newsLabel1Exited" prefHeight="94.0" prefWidth="228.0" style="-fx-background-color: white;" text="Label" textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font size="15.0" />
-                     </font></Label>
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Label>
                   <Label fx:id="newsLabel2" alignment="CENTER" layoutY="92.0" onMouseClicked="#newsLabel2Clicked" onMouseEntered="#newsLabel2Entered" onMouseExited="#newsLabel2Exited" prefHeight="94.0" prefWidth="228.0" style="-fx-background-color: white;" text="Label" textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font size="15.0" />
-                     </font></Label>
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Label>
                   <Label fx:id="newsLabel3" alignment="CENTER" layoutY="186.0" onMouseClicked="#newsLabel3Clicked" onMouseEntered="#newsLabel3Entered" onMouseExited="#newsLabel3Exited" prefHeight="94.0" prefWidth="228.0" style="-fx-background-color: white;" text="Label" textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font size="15.0" />
-                     </font></Label>
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Label>
                   <Label fx:id="newsLabel4" alignment="CENTER" layoutY="280.0" onMouseClicked="#newsLabel4Clicked" onMouseEntered="#newsLabel4Entered" onMouseExited="#newsLabel4Exited" prefHeight="94.0" prefWidth="228.0" style="-fx-background-color: white;" text="Label" textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font size="15.0" />
-                     </font></Label>
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Label>
                   <Line endX="112.0" endY="1.0" layoutX="113.0" layoutY="92.0" startX="-113.0" />
                   <Line endX="112.0" endY="1.0" layoutX="113.0" layoutY="185.0" startX="-113.0" />
                   <Line endX="112.0" endY="1.0" layoutX="114.0" layoutY="279.0" startX="-113.0" />
@@ -228,6 +240,9 @@
                <image>
                   <Image url="@Images/icons8-combo-chart-96.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
             <ImageView fitHeight="46.0" fitWidth="46.0" layoutX="340.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -313,7 +328,7 @@
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </JFXButton>
-            <JFXButton fx:id="launchButton" alignment="CENTER" layoutX="-1.0" layoutY="301.0" onAction="#onSettingsClicked" prefHeight="46.0" prefWidth="219.0" text="New Task" textFill="WHITE">
+            <JFXButton fx:id="launchButton" alignment="CENTER" layoutX="-1.0" layoutY="301.0" onAction="#onNewTaskClicked" prefHeight="46.0" prefWidth="219.0" text="New Task" textFill="WHITE">
                <font>
                   <Font size="17.0" />
                </font>
@@ -361,6 +376,9 @@
                <font>
                   <Font size="30.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Label>
             <Label fx:id="etherBalanceLabel" layoutX="1109.0" layoutY="83.0" prefHeight="16.0" prefWidth="181.0" text="14.988453788000000001" textFill="#b5aaaa" />
             <JFXButton layoutX="1235.0" layoutY="32.0" prefHeight="46.0" prefWidth="46.0" ripplerFill="#fcf7f7" text="    ">

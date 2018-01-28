@@ -7,9 +7,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import org.web3j.protocol.core.methods.response.TransactionReceipt;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
+import java.math.BigInteger;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -19,18 +21,26 @@ public class UndertakeProjectConfirmController implements Initializable{
     JFXButton yesButton, noButton;
     @FXML
     JFXToggleButton toggleButton;
-
+    int projectID;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
     }
 
+    public void setId(int id){
+        projectID = id;
+    }
+
     public void onYes(){
         if(toggleButton.isSelected()){
             try {
-                // TODO: Proceed to accept the contract
-            }catch (Exception e){
+                if(!ProjectViewController.isAccepted) {
+                    TransactionReceipt receipt = Main.contractCw.acceptProject(BigInteger.valueOf(projectID)).send();
+                    System.out.println("Project Accepted");
+                }
 
+            }catch (Exception e){
+                System.out.println("Project Pre-Accepted");
             }
         }else {
             showAlert("Accept Terms and Conditions", "Please Accept the terms and conditions to proceed further","");

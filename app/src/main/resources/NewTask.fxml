@@ -1,78 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.web.WebView?>
+<?import com.jfoenix.controls.JFXRadioButton?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
-<?import com.jfoenix.controls.JFXButton?>
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="framework.NewTaskController"
-            prefHeight="400.0" prefWidth="600.0">
+
+<AnchorPane fx:id="rootPane" prefHeight="533.0" prefWidth="772.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="framework.NewTaskController">
 
     <children>
-        <AnchorPane layoutX="-3.0" layoutY="150.0" prefHeight="49.0" prefWidth="1284.0" style="-fx-background-color: grey;">
+        <Group layoutX="35.0" layoutY="57.0">
             <children>
-                <JFXButton focusTraversable="false" layoutX="7.0" layoutY="-1.0" prefHeight="49.0" prefWidth="137.0" style="-fx-background-radius: 0;" text="DASHBOARD" textFill="#f6f5f5">
+                <JFXRadioButton fx:id="workService" focusTraversable="false" layoutY="8.0" text="COMMUNITY WORK">
                     <font>
-                        <Font size="14.0" />
+                        <Font size="20.0" />
                     </font>
-                </JFXButton>
-                <JFXButton focusTraversable="false" layoutX="145.0" prefHeight="49.0" prefWidth="164.0" style="-fx-background-radius: 0;" text="ONLINE PREVIEW" textFill="#f6f5f5">
+                </JFXRadioButton>
+                <JFXRadioButton fx:id="commService" focusTraversable="false" layoutY="50.0" text="COMMUNITY FUNDING">
                     <font>
-                        <Font size="14.0" />
+                        <Font size="20.0" />
                     </font>
-                </JFXButton>
-                <JFXButton focusTraversable="false" layoutX="1016.0" layoutY="-1.0" prefHeight="49.0" prefWidth="164.0" style="-fx-background-radius: 0;" text="PAY" textFill="#f6f5f5">
+                </JFXRadioButton>
+                <JFXRadioButton fx:id="medicalService" focusTraversable="false" layoutY="92.0" text="MEDICAL FUNDING">
                     <font>
-                        <Font name="System Bold" size="18.0" />
+                        <Font size="20.0" />
                     </font>
-                </JFXButton>
+                </JFXRadioButton>
             </children>
-        </AnchorPane>
-        <AnchorPane layoutX="-4.0" opacity="0.82" prefHeight="150.0" prefWidth="1284.0" style="-fx-background-color: #1D2026;">
-            <children>
-                <Label layoutX="1030.0" layoutY="45.0" prefHeight="30.0" prefWidth="114.0" text="Balance:" textFill="#ddd9d9" wrapText="true">
-                    <font>
-                        <Font size="24.0" />
-                    </font>
-                </Label>
-                <Label layoutX="1042.0" layoutY="74.0" prefHeight="23.0" prefWidth="212.0" text="18.000000000000000000" textFill="#b5aaaa">
-                    <font>
-                        <Font size="15.0" />
-                    </font>
-                </Label>
-                <Label layoutX="1025.0" layoutY="76.0" text="Ξ" textFill="#b5aaaa">
-                    <font>
-                        <Font size="16.0" />
-                    </font>
-                </Label>
-                <ImageView fitHeight="69.0" fitWidth="80.0" layoutX="22.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
-
-                </ImageView>
-                <Label layoutX="111.0" layoutY="35.0" prefHeight="58.0" prefWidth="640.0" text="Abhishek Kumar Singh" textFill="#ddd9d9">
-                    <font>
-                        <Font name="FreeSerif Bold" size="43.0" />
-                    </font>
-                </Label>
-                <Label layoutX="111.0" layoutY="81.0" opacity="0.66" prefHeight="25.0" prefWidth="511.0" text="0xe470a002afbd470488fa4dc8ccf8089878b8b683" textFill="#b5aaaa">
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                </Label>
-            </children>
-        </AnchorPane>
-        <AnchorPane layoutX="-3.0" layoutY="199.0" maxWidth="1284.0" minWidth="1284.0" opacity="0.82" prefHeight="521.0" prefWidth="1284.0" style="-fx-background-color: #1D2026;">
-            <children>
-                <WebView fx:id="webpage" layoutX="14.0" layoutY="14.0" prefHeight="496.0" prefWidth="1254.0" />
-                <Button fx:id="refreshTran" layoutX="1180.0" layoutY="471.0" mnemonicParsing="false" opacity="0.5" prefHeight="30.0" prefWidth="80.0" style="-fx-background-radius: 0;" text="Refresh" />
-            </children>
-        </AnchorPane>
-    </children>
-
-</AnchorPane>
+        </Group>
+        <Line endX="150.0" layoutX="153.0" layoutY="53.0" startX="-100.0" />
+        <Line endX="150.0" layoutX="153.0" layoutY="186.0" startX="-100.0" />
+        <Label layoutX="26.0" layoutY="254.0" text="DESCRIPTION">
+            <font>
+                <Font name="System Bold" size="20.0" />
+            </font>
+        </Label>
+        <TextArea fx:id="textArea" layoutX="26.0" layoutY="286.0" prefHeight="170.0" prefWidth="719.0" />
+        <Label layoutX="474.0" layoutY="32.0" text="TIME REQUIRED TO">
+            <font>
+                <Font name="System Bold" size="22.0" />
+            </font>
+        </Label>
+        <Label layoutX="474.0" layoutY="62.0" text="FULFILL FUNDING">
+            <font>
+                <Font name="System Bold" size="22.0" />
+            </font>
+        </Label>
+        <Line endX="150.0" layoutX="575.0" layoutY="97.0" startX="-100.0" />
+        <TextField fx:id="daysField" layoutX="523.0" layoutY="109.0" prefHeight="39.0" prefWidth="123.0">
+            <font>
+                <Font size="22.0" />
+            </font>
+        </TextField>
+        <Label layoutX="655.0" layoutY="118.0" prefHeight="39.0" prefWidth="71.0" text="Days">
+            <font>
+                <Font size="22.0" />
+            </font>
+        </Label>
+        <Button fx:id="submitButton" layoutX="269.0" layoutY="473.0" mnemonicParsing="false" onAction="#submitButtonClicked" prefHeight="39.0" prefWidth="83.0" text="SUBMIT" />
+        <Button fx:id="cancelButton" layoutX="420.0" layoutY="473.0" mnemonicParsing="false" onAction="#cancelButtonClicked" prefHeight="39.0" prefWidth="83.0" text="CANCEL" />
+        <Label fx:id="closeLabel" layoutX="751.0" layoutY="14.0" onMouseClicked="#cancelButtonClicked" prefHeight="16.0" prefWidth="14.0" text="X" textAlignment="CENTER" />
+        <Label layoutX="474.0" layoutY="186.0" text="TARGET">
+            <font>
+                <Font name="System Bold" size="20.0" />
+            </font>
+        </Label>
+        <TextField fx:id="targetField" layoutX="574.0" layoutY="170.0" prefHeight="39.0" prefWidth="89.0" />
+        <Label layoutX="664.0" layoutY="181.0" text="Ξ">
+            <font>
+                <Font size="24.0" />
+            </font>
+        </Label>
+        <Label layoutX="474.0" layoutY="242.0" text="CONTRIBUTION">
+            <font>
+                <Font name="System Bold" size="20.0" />
+            </font>
+        </Label>
+        <TextField fx:id="contributeFund" layoutX="654.0" layoutY="224.0" prefHeight="39.0" prefWidth="71.0" promptText="in Wei" />
+    </children></AnchorPane>

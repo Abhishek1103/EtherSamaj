@@ -31,6 +31,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import javafx.util.Pair;
 import org.web3j.abi.datatypes.Type;
 import org.web3j.abi.datatypes.generated.Bytes32;
 import org.web3j.abi.datatypes.generated.Bytes8;
@@ -42,6 +43,7 @@ import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.protocol.core.methods.response.Web3ClientVersion;
 import org.web3j.protocol.http.HttpService;
+import org.web3j.tuples.Tuple;
 import org.web3j.tuples.generated.Tuple2;
 import org.web3j.tuples.generated.Tuple3;
 import org.web3j.tx.Contract;
@@ -59,9 +61,8 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.ResourceBundle;
+import java.util.*;
+import java.util.List;
 
 import static java.lang.Thread.sleep;
 
@@ -133,6 +134,9 @@ public class MainUiController extends Thread implements Initializable  {
     @FXML Label newsLabel1, newsLabel2, newsLabel3, newsLabel4;
 
     String[] webArray = new String[4];
+    int a[];
+
+    static  List<Pair<Integer, Integer> > trendingList;
 
     static BalanceSetter bs;
 
@@ -265,7 +269,35 @@ public class MainUiController extends Thread implements Initializable  {
                     protected Void call() throws Exception {
                         try{
                             Main.contractCw=CommunityWork.load(
-                                    "0x4243d91ec3181a57ed807a0f6379bfb3530b8711", Main.web3j, Main.credentials, ManagedTransaction.GAS_PRICE, Contract.GAS_LIMIT);
+                                    Main.contractAddress, Main.web3j, Main.credentials, ManagedTransaction.GAS_PRICE, Contract.GAS_LIMIT);
+                            BigInteger totalProjects = Main.contractCw.getProjectIdLength().send();
+                            System.out.println("Total leng"+ totalProjects);
+                            //a =new int[totalProjects.intValue()];
+                            for (int i = 0; i < totalProjects.intValue(); i++) {
+                                a[i] = (Main.contractCw.getAllProjectId(BigInteger.valueOf(i)).send()).intValue();
+                                System.out.println(i+"->"+a[i]);
+                            }
+                            for(int i=0;i<totalProjects.intValue();i++){
+                                Tuple3<BigInteger, BigInteger, BigInteger> result = Main.contractCw.getProjectValues(BigInteger.valueOf(a[i])).send();
+                                //trending=new Tuple<>((result.getValue1()).intValue(), a[i]);
+
+                                Pair<Integer, Integer> pair = new Pair<>((result.getValue1()).intValue(), a[i]);
+                                trendingList.add(pair);
+                            }
+                            //Arrays.sort();
+
+
+
+                            Comparator<Pair<Integer, Integer>> comparator = new Comparator<Pair<Integer, Integer>>(){
+                                public int compare(Pair<Integer, Integer> pairA,
+                                                   Pair<Integer, Integer> pairB)
+                                {
+                                    return pairA.getKey().compareTo(pairB.getKey());
+                                }
+                            };
+
+
+
                         }
                         catch (Exception e)
                         {
@@ -280,6 +312,14 @@ public class MainUiController extends Thread implements Initializable  {
         cwThread.setOnSucceeded(e->{
 //            SlidePaneController obj=new SlidePaneController();
 //            obj.updateProjectsView();
+            Comparator<Pair<Integer, Integer>> comparator = new Comparator<Pair<Integer, Integer>>(){
+                public int compare(Pair<Integer, Integer> pairA,
+                                   Pair<Integer, Integer> pairB)
+                {
+                    return pairA.getKey().compareTo(pairB.getKey());
+                }
+            };
+            //Collections.sort(trendingList, comparator);
             SlidePaneController.updateProjectsView();
         });
 
@@ -294,6 +334,22 @@ public class MainUiController extends Thread implements Initializable  {
     @FXML
     public void medicalFundClicked(){
 
+    }
+
+    @FXML
+    public void onNewTaskClicked(){
+        Stage newTaskWindow = new Stage();
+        newTaskWindow.initModality(Modality.APPLICATION_MODAL);
+        newTaskWindow.initStyle(StageStyle.TRANSPARENT);
+        try {
+            Parent newTaskRoot = FXMLLoader.load(getClass().getResource("../../resources/NewTask.fxml"));
+            Scene sc = new Scene(newTaskRoot);
+            sc.setFill(Color.TRANSPARENT);
+            newTaskWindow.setScene(sc);
+            newTaskWindow.showAndWait();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 
@@ -505,10 +561,10 @@ public class MainUiController extends Thread implements Initializable  {
         // TODO: Load news
         System.out.println("In news Method");
         try {
-            ProcessBuilder processBuilder = new ProcessBuilder("python", "/home/aks/Documents/Hack36/src/main/resources/CryptocurrencyNews.py");
-            Process process = processBuilder.start();
+            //ProcessBuilder processBuilder = new ProcessBuilder("python", "/home/aks/Documents/Hack36/src/main/resources/CryptocurrencyNews.py");
+            //Process process = processBuilder.start();
 
-            //Process process = Runtime.getRuntime().exec("python /home/aks/Documents/Hack36/src/main/resources/CryptocurrencyNews.py");
+            Process process = Runtime.getRuntime().exec("python /home/aks/Documents/Hack36/src/main/resources/CryptocurrencyNews.py");
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String S;

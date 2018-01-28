@@ -97,7 +97,7 @@ public class SlidePaneController implements Initializable {
                     protected Void call() throws Exception {
                         try {
                             Main.contractCw = CommunityWork.load(
-                                    "0x4243d91ec3181a57ed807a0f6379bfb3530b8711", Main.web3j, Main.credentials, ManagedTransaction.GAS_PRICE, Contract.GAS_LIMIT);
+                                    Main.contractAddress, Main.web3j, Main.credentials, ManagedTransaction.GAS_PRICE, Contract.GAS_LIMIT);
                             BigInteger totalProjects = Main.contractCw.getProjectIdLength().send();
                             System.out.println("Total leng"+ totalProjects);
                             //a =new int[totalProjects.intValue()];

@@ -23,7 +23,7 @@
                   <Font size="14.0" />
                </font>
             </JFXButton>
-            <JFXButton focusTraversable="false" layoutX="1016.0" layoutY="-1.0" prefHeight="49.0" prefWidth="164.0" style="-fx-background-radius: 0;" text="PAY" textFill="#f6f5f5">
+            <JFXButton fx:id="payButton" focusTraversable="false" layoutX="1016.0" layoutY="-1.0" onAction="#payEther" prefHeight="49.0" prefWidth="164.0" style="-fx-background-radius: 0;" text="PAY" textFill="#f6f5f5">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
