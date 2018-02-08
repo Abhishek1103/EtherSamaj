@@ -334,7 +334,7 @@ class FundProject extends Thread{
 
     public void run(){
         try{
-            TransactionReceipt receipt = Main.contractCw.addFunds("0xe470a002afbd470488fa4dc8ccf8089878b8b683",BigInteger.valueOf(projectID), BigInteger.valueOf(amount)).send();
+            TransactionReceipt receipt = Main.contractCw.addFunds(Main.publicKey,BigInteger.valueOf(projectID), BigInteger.valueOf(amount)).send();
         }catch(Exception e){
             e.printStackTrace();
         }

@@ -148,7 +148,7 @@ public class MainUiController extends Thread implements Initializable  {
     //static CommunityWork contractCW, contractCF, contractMF;
 
     final double[] xoffset = new double[1];  // This is because variables used in lambda expression should
-    final double[] yoffset = new double[1];  // final or effectively final. And IDE suggested this method
+    final double[] yoffset = new double[1];  // final or effectively final.
     int count=0;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -220,13 +220,13 @@ public class MainUiController extends Thread implements Initializable  {
                 return new Task<Void>() {
                     @Override
                     protected Void call() throws Exception {
-                        try{
-                            Main.web3j = Web3j.build(new HttpService("https://rinkeby.infura.io/Nb9v0iQy5LYKUBBYu3Hp"));
+                        try{                                    // TODO: Enter your token
+                            Main.web3j = Web3j.build(new HttpService("https://rinkeby.infura.io/<Your Token Here>"));
                             Main.web3ClientVersion = Main.web3j.web3ClientVersion().send();
                             String clientVersion = Main.web3ClientVersion.getWeb3ClientVersion();
                             System.out.println(clientVersion);
-
-                           Main.credentials = WalletUtils.loadCredentials("123456789","/home/aks/.ethereum/testnet/keystore/UTC--2018-01-22T10-02-54.636000000Z--e470a002afbd470488fa4dc8ccf8089878b8b683.json"/*LoginController.password, Main.walletFileAddress*/);
+                                                                    // TODO: Enter your password
+                           Main.credentials = WalletUtils.loadCredentials("123456789",Main.walletFileAddress/*LoginController.password, Main.walletFileAddress*/);
                             System.out.println("Credentials: "+Main.credentials.toString());
                         }
                         catch (Exception e)
@@ -515,7 +515,7 @@ public class MainUiController extends Thread implements Initializable  {
 
 //                        ProcessBuilder pb = new ProcessBuilder("python","/home/aks/Documents/Hack36/src/main/resources/CoinRate.py");
 //                        Process p = pb.start();
-
+                                                                                    // TODO: Modify the path Accordingly
                             Process p1 = Runtime.getRuntime().exec("python /home/aks/Documents/Hack36/src/main/resources/CoinRate.py");
                             BufferedReader stdInput1 = new BufferedReader(new InputStreamReader(p1.getInputStream()));
                             Double con=0.0;
@@ -587,7 +587,7 @@ public class MainUiController extends Thread implements Initializable  {
     public void loadNews(){
         // TODO: Load news
         System.out.println("In news Method");
-        try {
+        try {                                                                       //TODO: Modify the path accordingly
             ProcessBuilder processBuilder = new ProcessBuilder("python", "/home/aks/Documents/Hack36/src/main/resources/CryptocurrencyNews.py");
             Process process = processBuilder.start();
 
@@ -690,8 +690,8 @@ public class MainUiController extends Thread implements Initializable  {
                     @Override
                     protected Void call() throws Exception {
                         try{
-                            String str;                                                                         // TODO: replace with userPublic key
-                            Process p1 = Runtime.getRuntime().exec("python /home/aks/Documents/Hack36/src/main/resources/Balance.py "+"0xE470A002AFBD470488FA4dc8cCF8089878b8b683");
+                            String str;                                             // TODO: Modify the path accordingly
+                            Process p1 = Runtime.getRuntime().exec("python /home/aks/Documents/Hack36/src/main/resources/Balance.py "+Main.publicKey);
                             BufferedReader br = new BufferedReader(new InputStreamReader(p1.getInputStream()));
 
                             try {
@@ -782,8 +782,8 @@ class BalanceSetter extends Thread{
             @Override
             public void run() {
                 try {
-                    String str;
-                    Process p1 = Runtime.getRuntime().exec("python /home/aks/Documents/Hack36/src/main/resources/Balance.py "+"0xE470A002AFBD470488FA4dc8cCF8089878b8b683");
+                    String str;                                              // TODO: Modify the path accordingly
+                    Process p1 = Runtime.getRuntime().exec("python /home/aks/Documents/Hack36/src/main/resources/Balance.py "+Main.publicKey);
                     BufferedReader br = new BufferedReader(new InputStreamReader(p1.getInputStream()));
 
                     try {

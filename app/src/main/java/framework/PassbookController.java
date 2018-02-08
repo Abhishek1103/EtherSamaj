@@ -36,7 +36,7 @@ public class PassbookController implements Initializable{
     public WebEngine engine;
 
     public final String webLink = "https://rinkeby.etherscan.io/address/";
-    public static String id = "0xe470a002afbd470488fa4dc8ccf8089878b8b683";
+    public static String id = Main.publicKey;
 
 
     @FXML

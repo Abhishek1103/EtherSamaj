@@ -34,7 +34,7 @@ public class test
 //        System.setProperty("http.proxyUser", authUser);
 //        System.setProperty("http.proxyPassword", authPassword);
         try {
-            Web3j web3j = Web3j.build(new HttpService("https://rinkeby.infura.io/Nb9v0iQy5LYKUBBYu3Hp"));
+            Web3j web3j = Web3j.build(new HttpService("https://rinkeby.infura.io/<YOUR TOKEN>"));
             Web3ClientVersion web3ClientVersion = web3j.web3ClientVersion().send();
             String clientVersion = web3ClientVersion.getWeb3ClientVersion();
             System.out.println(clientVersion);

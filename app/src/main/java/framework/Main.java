@@ -29,7 +29,7 @@ public class Main extends Application {
     protected static CommunityWork contractCw;
     protected static Web3ClientVersion web3ClientVersion;
 
-    protected static String contractAddress = "0x9420ed8942b4e769641cb7dc3174e4e98965f666";
+    protected static String contractAddress = "0x9420ed8942b4e769641cb7dc3174e4e98965f666";     // Contract address on the infura test network
 
     @Override
     public void start(Stage primaryStage) throws Exception{

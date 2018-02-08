@@ -74,12 +74,11 @@ public class LoginController implements Initializable {
         }else if(password == null || password.isEmpty() ){
             showAlert("Invalid Credentials", "Password Empty..!!", "This is a required field\nand cannot be left blank..!!");
         }else{
-            //TODO: Get username from the stored file
             String fetchedUsername="", fetchedPassword="";
-            try {
+            try {                                        // TODO: Enter the path of your credentials.txt file
                 FileReader fr = new FileReader("/home/aks/Documents/Hack36/src/main/resources/"+"credentials.txt");
                 BufferedReader br = new BufferedReader(fr);
-                Main.walletFileAddress = System.getProperty("user.home")+"/Desktop/"+br.readLine();
+                Main.walletFileAddress = System.getProperty("user.home")+"/Desktop/"+br.readLine(); // TODO: Modify accordingly
                 Main.publicKey = br.readLine();
                 Main.fullName = br.readLine();
                 fetchedUsername = br.readLine();
@@ -197,8 +196,9 @@ public class LoginController implements Initializable {
         }
         if(flag==1)
         {
-            try {
+            try {                                                              // TODO: Enter the path where you want to save the wallet file
                 String fileName = WalletUtils.generateFullNewWalletFile(password, new File(System.getProperty("user.home")+"/Desktop/"));
+                                                                                // TODO: Enter the path where credentials.txt will be stored(to be used during login)
                 PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("/home/aks/Documents/Hack36/src/main/resources/"+"credentials.txt")));
                 pw.println(fileName);
                 pw.println("0x"+fileName.substring(fileName.lastIndexOf("-")+1,fileName.lastIndexOf("-")+41));
