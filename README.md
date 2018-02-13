@@ -14,14 +14,14 @@ EtherSamaj is a *Decentralised* Desktop Application which allows people of a com
 * Currently the app will run only on Linux systems.
 * Python 3.5.x or above must be present in the system.
 
-##### Instructions
-* You would need an infura-rinkeby token to connect to the Ethereum test network. You can get your token [ here ](https://infura.io/signup)
-* Fork the repository and clone it on your system.
-* Open the project in an IDE.
-* Write your Token in the MainUiController.java class.
-* Make the few necessary path changes in the code.
-* Run the project.
-* On signUp the application will create a wallet file which will contain all the information like public key, hashes of password etc.
+* ##### Instructions
+ * You would need an infura-rinkeby token to connect to the Ethereum test network. You can get your token [ here ](https://infura.io/signup)
+ * Fork the repository and clone it on your system.
+ * Open the project in an IDE.
+ * Write your Token in the MainUiController.java class.
+ * Make the few necessary path changes in the code.
+ * Run the project.
+ * On signUp the application will create a wallet file which will contain all the information like public key, hashes of password etc.
 
 #### Feedback
 In case of any problems feel free to notify. :smiley:
